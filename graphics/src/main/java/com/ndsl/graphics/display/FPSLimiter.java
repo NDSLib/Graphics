@@ -11,6 +11,7 @@ public class FPSLimiter {
     public long LatestTime;
     public long perNanoMill;
     public long MaxFPS;
+    public long LatestFPS;
 
     public FPSLimiter(int limitedFPS){
         this.limitedFPS=limitedFPS;
@@ -33,7 +34,7 @@ public class FPSLimiter {
 
     private Drawable genDrawable() {
 //        System.out.println("FPS:"+getFPS());
-        return new Drawable("FPS:"+getFPS()+" "+"MaxFPS:"+MaxFPS,new Pos(100,100),"FPS_Mater");
+        return new Drawable("FPS:"+getFPS()+" "+"MaxFPS:"+MaxFPS+" "+"FramesCount:"+FPSCount,new Pos(100,100),"FPS_Mater");
     }
 
     public long getFPS(){
@@ -42,6 +43,7 @@ public class FPSLimiter {
         if(((System.nanoTime() - StartTime)/one_sec)==0) return 0;
         long fps=(FPSCount/((System.nanoTime() - StartTime)/one_sec));
         if(fps>MaxFPS) MaxFPS=fps;
+        LatestFPS=fps;
         return fps;
     }
 }

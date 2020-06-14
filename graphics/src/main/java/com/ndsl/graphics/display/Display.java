@@ -42,7 +42,14 @@ public class Display extends JFrame {
 
     public void update(){
         if(bufferStrategy.contentsLost()) bufferStrategy=this.getBufferStrategy();
-        update(getGraphic());
+        switch (attitude){
+            case AlwaysUpdate:
+            update(getGraphic());
+            case NoFocusNoUpdate:
+                if(this.hasFocus()){
+                    update(getGraphic());
+                }
+        }
     }
 
     @Override
@@ -101,4 +108,14 @@ public class Display extends JFrame {
         }
         return false;
     }
+
+
+    /**
+     * Attitude
+     */
+    public DisplayAttitude attitude=DisplayAttitude.NoFocusNoUpdate;
+    public void setAttitude(DisplayAttitude a){
+        attitude=a;
+    }
+
 }
