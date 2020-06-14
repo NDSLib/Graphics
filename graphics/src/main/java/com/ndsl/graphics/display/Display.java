@@ -1,5 +1,8 @@
 package com.ndsl.graphics.display;
 
+import com.ndsl.graphics.display.drawable.Drawable;
+import com.ndsl.graphics.display.fps.FPSAttitude;
+import com.ndsl.graphics.display.fps.FPSLimiter;
 import com.ndsl.graphics.pos.Pos;
 import com.ndsl.graphics.pos.Rect;
 import org.jetbrains.annotations.Nullable;
@@ -12,7 +15,7 @@ import java.util.List;
 
 public class Display extends JFrame {
 
-    public FPSLimiter limiter =new FPSLimiter(1080);
+    public FPSLimiter limiter =new FPSLimiter(120, FPSAttitude.KEEP_UP_FPS);
 
     public BufferStrategy bufferStrategy;
 
@@ -118,4 +121,9 @@ public class Display extends JFrame {
         attitude=a;
     }
 
+
+    public Display setMaxFPS(int maxFPS){
+        limiter.setMaxFPS(maxFPS);
+        return this;
+    }
 }

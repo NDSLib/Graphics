@@ -1,9 +1,12 @@
 package com.ndsl.graphics;
 
 import com.ndsl.graphics.display.Display;
-import com.ndsl.graphics.display.Drawable;
+import com.ndsl.graphics.display.drawable.Drawable;
+import com.ndsl.graphics.display.drawable.StringDrawable;
 import com.ndsl.graphics.pos.Pos;
 import com.ndsl.graphics.pos.Rect;
+
+import java.awt.*;
 
 public class GraphicsMain {
     public static Display display=new Display("NDSL/Graphics",3,new Rect(new Pos(100,100),new Pos(600,600)));
@@ -18,7 +21,7 @@ public class GraphicsMain {
 //        display.addDrawable(new Drawable("test_drawable"));
 //        System.out.println(display.drawableList);
 
-
+        display.addDrawable(new Drawable(new StringDrawable("TEST_FONT",new Font(StringDrawable.Default_Font_String,Font.BOLD,12)),new Pos(200,200)));
 
         //noinspection InfiniteLoopStatement
         while (true){

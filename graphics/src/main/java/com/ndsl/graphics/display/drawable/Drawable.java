@@ -1,4 +1,4 @@
-package com.ndsl.graphics.display;
+package com.ndsl.graphics.display.drawable;
 
 import com.ndsl.graphics.pos.Pos;
 import com.ndsl.graphics.pos.Rect;
@@ -48,6 +48,8 @@ public class Drawable {
             g.drawImage((Image)drawObject,left_up.x,left_up.y,null);
         }else if(drawObject instanceof String){
             g.drawString((String)drawObject,left_up.x, left_up.y);
+        }else if(drawObject instanceof ICustomDrawable){
+            ((ICustomDrawable) drawObject).onDraw(g,getShowingRect());
         }
     }
 
@@ -59,7 +61,9 @@ public class Drawable {
     @Override
     public boolean equals(Object obj) {
         if(obj instanceof Drawable){
-            if(((Drawable)obj).getID().equals(getID())) return true;
+            if(((Drawable) obj).getID()!=null) {
+                if (((Drawable) obj).getID().equals(getID())) return true;
+            }
             if (((Drawable)obj).left_up.equals(left_up)){
                 return ((Drawable)obj).drawObject.equals(drawObject);
             }else{
