@@ -1,2 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module external.linked.project.id="graphics" external.linked.project.path="$MODULE_DIR$/../../graphics" external.root.project.path="$MODULE_DIR$/../../graphics" external.system.id="GRADLE" external.system.module.group="com.ndsl" external.system.module.version="1.0" type="JAVA_MODULE" version="4" />
+<module external.linked.project.id="graphics" external.linked.project.path="$MODULE_DIR$/../../graphics" external.root.project.path="$MODULE_DIR$/../../graphics" external.system.id="GRADLE" external.system.module.group="com.ndsl" external.system.module.version="1.0" type="JAVA_MODULE" version="4">
+  <component name="ExternalSystem" linkedProjectPath="$MODULE_DIR$/../../graphics" rootProjectPath="$MODULE_DIR$/../../graphics" />
+</module>
