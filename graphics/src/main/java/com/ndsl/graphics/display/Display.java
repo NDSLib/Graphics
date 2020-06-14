@@ -1,6 +1,7 @@
 package com.ndsl.graphics.display;
 
 import com.ndsl.graphics.display.drawable.Drawable;
+import com.ndsl.graphics.display.drawable.GUIBase;
 import com.ndsl.graphics.display.fps.FPSAttitude;
 import com.ndsl.graphics.display.fps.FPSLimiter;
 import com.ndsl.graphics.pos.Pos;
@@ -26,12 +27,18 @@ public class Display extends JFrame {
         this.createBufferStrategy(bufferSize);
         this.bufferStrategy = this.getBufferStrategy();
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+//        this.setAlwaysOnTop(true);
     }
 
     public List<Drawable> drawableList=new ArrayList<>();
+    public List<GUIBase> guiList=new ArrayList<>();
 
     public boolean isShowing(Drawable drawable){
         return drawable.getShowingRect().contain(getDisplayShowingRect());
+    }
+
+    public boolean isShowing(GUIBase guiBase){
+        return true;
     }
 
     public Rect getDisplayShowingRect(){
@@ -57,9 +64,15 @@ public class Display extends JFrame {
 
     @Override
     public void update(Graphics g) {
-//        System.out.println("onUpdate");
         boolean need_draw=false;
         for(Drawable d:drawableList){
+            if(isShowing(d)){
+                if(!need_draw) clear();
+                d.onDraw(g);
+                need_draw=true;
+            }
+        }
+        for(GUIBase d:guiList){
             if(isShowing(d)){
                 if(!need_draw) clear();
                 d.onDraw(g);
@@ -76,18 +89,23 @@ public class Display extends JFrame {
     }
 
     public void repaint() {
-//        if(bufferStrategy.contentsLost()) return;
         Toolkit.getDefaultToolkit().sync();
         if(!bufferStrategy.contentsLost()) bufferStrategy.show();
-//        bufferStrategy.dispose();
     }
 
     public Display addDrawable(Drawable e){
         if(isExist(e.getID())){
             this.drawableList.remove(e);
-//            System.out.println("Removed");
         }
         this.drawableList.add(e);
+        return this;
+    }
+
+    public Display addGui(GUIBase e){
+        if(isExist(e.getID())){
+            this.guiList.remove(e);
+        }
+        this.guiList.add(e);
         return this;
     }
 
@@ -102,14 +120,19 @@ public class Display extends JFrame {
         return null;
     }
 
-    public boolean isExist(String drawable_id){
-        for(Drawable drawable:drawableList){
+    @Nullable
+    public GUIBase getGuiWithID(String gui_id){
+        for(GUIBase drawable:guiList){
             if(drawable.getID()==null) continue;
-            if(drawable.getID().equals(drawable_id)){
-                return true;
+            if(drawable.getID().equals(gui_id)){
+                return drawable;
             }
         }
-        return false;
+        return null;
+    }
+
+    public boolean isExist(String drawable_id){
+        return getDrawableWithID(drawable_id)!=null || getGuiWithID(drawable_id)!=null;
     }
 
 

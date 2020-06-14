@@ -1,8 +1,7 @@
 package com.ndsl.graphics.display.fps;
 
 import com.ndsl.graphics.display.Display;
-import com.ndsl.graphics.display.drawable.Drawable;
-import com.ndsl.graphics.display.drawable.FontColor;
+import com.ndsl.graphics.display.drawable.GUIBase;
 import com.ndsl.graphics.pos.Pos;
 
 public class FPSLimiter {
@@ -71,12 +70,12 @@ public class FPSLimiter {
     }
 
     public void setDrawable(Display display){
-        display.addDrawable(genDrawable());
+        display.addGui(genDrawable());
     }
 
-    private Drawable genDrawable() {
+    private GUIBase genDrawable() {
 //        System.out.println("FPS:"+getFPS());
-        return new Drawable("FPS:"+getFPS()+" "+"MaxFPS:"+MaxFPS+" "+"LimitedFPS:"+limitedFPS+" "+"FramesCount:"+FPSCount+" "+"GoodFrames:"+GoodFrameCount+" "+"FrameHealth:"+getFrameHealth(),new Pos(10,40),"FPS_Mater");
+        return new GUIBase("FPS:"+getFPS()+" "+"MaxFPS:"+MaxFPS+" "+"LimitedFPS:"+limitedFPS+" "+"FramesCount:"+FPSCount+" "+"GoodFrames:"+GoodFrameCount+" "+"FrameHealth:"+getFrameHealth(),new Pos(10,40),"FPS_Mater");
     }
 
     public long getFPS(){
