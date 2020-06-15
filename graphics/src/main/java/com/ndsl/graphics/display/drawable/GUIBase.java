@@ -3,6 +3,8 @@ package com.ndsl.graphics.display.drawable;
 import com.ndsl.graphics.pos.Pos;
 import com.ndsl.graphics.pos.Rect;
 
+import java.awt.*;
+
 public class GUIBase extends Drawable{
     public GUIBase(Object o, Pos left_up) {
         super(o, left_up);
@@ -37,6 +39,14 @@ public class GUIBase extends Drawable{
             }
         }else{
             return false;
+        }
+    }
+
+    @Override
+    public void onDraw(Graphics g) {
+        super.onDraw(g);
+        if(drawObject instanceof ICustomGui){
+            ((ICustomGui) drawObject).onDraw(g,getShowingRect());
         }
     }
 }

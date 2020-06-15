@@ -4,6 +4,8 @@ import com.ndsl.graphics.display.drawable.Drawable;
 import com.ndsl.graphics.display.drawable.GUIBase;
 import com.ndsl.graphics.display.fps.FPSAttitude;
 import com.ndsl.graphics.display.fps.FPSLimiter;
+import com.ndsl.graphics.display.key.KeyInputHandler;
+import com.ndsl.graphics.display.mouse.MouseInputHandler;
 import com.ndsl.graphics.pos.Pos;
 import com.ndsl.graphics.pos.Rect;
 import org.jetbrains.annotations.Nullable;
@@ -19,6 +21,8 @@ public class Display extends JFrame {
     public FPSLimiter limiter =new FPSLimiter(120, FPSAttitude.KEEP_UP_FPS);
 
     public BufferStrategy bufferStrategy;
+    public KeyInputHandler keyHandler;
+    public MouseInputHandler mouseInputHandler;
 
     public Display(String title, int bufferSize, Rect displayBound){
         this.setTitle(title);
@@ -27,6 +31,8 @@ public class Display extends JFrame {
         this.createBufferStrategy(bufferSize);
         this.bufferStrategy = this.getBufferStrategy();
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.keyHandler=new KeyInputHandler(this);
+        this.mouseInputHandler=new MouseInputHandler(this);
 //        this.setAlwaysOnTop(true);
     }
 
@@ -95,6 +101,7 @@ public class Display extends JFrame {
 
     public Display addDrawable(Drawable e){
         if(isExist(e.getID())){
+//            System.out.println("DrawableRemoved!");
             this.drawableList.remove(e);
         }
         this.drawableList.add(e);
@@ -148,5 +155,9 @@ public class Display extends JFrame {
     public Display setMaxFPS(int maxFPS){
         limiter.setMaxFPS(maxFPS);
         return this;
+    }
+
+    public boolean isKeyPressing(int key_code){
+        return this.keyHandler.isKeyPressing(key_code);
     }
 }
