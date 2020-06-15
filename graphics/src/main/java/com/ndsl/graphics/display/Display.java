@@ -1,5 +1,7 @@
 package com.ndsl.graphics.display;
 
+import com.ndsl.graphics.Debugger;
+import com.ndsl.graphics.GraphicsMain;
 import com.ndsl.graphics.display.drawable.Drawable;
 import com.ndsl.graphics.display.drawable.GUIBase;
 import com.ndsl.graphics.display.fps.FPSAttitude;
@@ -23,6 +25,7 @@ public class Display extends JFrame {
     public BufferStrategy bufferStrategy;
     public KeyInputHandler keyHandler;
     public MouseInputHandler mouseInputHandler;
+    public Debugger debugger;
 
     public Display(String title, int bufferSize, Rect displayBound){
         this.setTitle(title);
@@ -34,6 +37,7 @@ public class Display extends JFrame {
         this.keyHandler=new KeyInputHandler(this);
         this.mouseInputHandler=new MouseInputHandler(this);
 //        this.setAlwaysOnTop(true);
+        this.debugger=new Debugger(limiter,keyHandler,mouseInputHandler);
     }
 
     public List<Drawable> drawableList=new ArrayList<>();
@@ -75,6 +79,7 @@ public class Display extends JFrame {
             if(isShowing(d)){
                 if(!need_draw) clear();
                 d.onDraw(g);
+                resetGraphics(g);
                 need_draw=true;
             }
         }
@@ -82,10 +87,14 @@ public class Display extends JFrame {
             if(isShowing(d)){
                 if(!need_draw) clear();
                 d.onDraw(g);
+                resetGraphics(g);
                 need_draw=true;
             }
         }
         if(need_draw) repaint();
+    }
+    private void resetGraphics(Graphics graphics){
+        graphics.setColor(GraphicsMain.Default_Color);
     }
 
     private void clear() {

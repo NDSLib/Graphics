@@ -2,8 +2,11 @@ package com.ndsl.graphics.display.mouse;
 
 import com.ndsl.graphics.display.Display;
 import com.ndsl.graphics.display.drawable.Drawable;
+import com.ndsl.graphics.display.drawable.LineDrawable;
 import com.ndsl.graphics.display.drawable.PointDrawable;
+import com.ndsl.graphics.pos.Line;
 import com.ndsl.graphics.pos.Pos;
+import com.ndsl.graphics.pos.Rect;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -12,6 +15,7 @@ import java.awt.event.MouseMotionListener;
 
 public class MouseInputHandler implements MouseMotionListener,MouseListener {
     public Pos now_mouse_pos=new Pos(0,0);
+    public Pos old_mouse_pos=new Pos(0,0);
     public boolean isClicking=false;
     public boolean isDoubleClicked=false;
 
@@ -81,6 +85,7 @@ public class MouseInputHandler implements MouseMotionListener,MouseListener {
     }
 
     private void setNow_mouse_pos(MouseEvent event){
+        old_mouse_pos=now_mouse_pos;
         now_mouse_pos=getPos(event);
     }
 
@@ -101,9 +106,9 @@ public class MouseInputHandler implements MouseMotionListener,MouseListener {
         }else{
             c=Color.BLACK;
         }
-        if(now_mouse_pos.x<0 || now_mouse_pos.y<0){
+        if(now_mouse_pos.x<=0 || now_mouse_pos.y<=0){
             return null;
         }
-        return new PointDrawable(now_mouse_pos,c);
+        return new Drawable(new LineDrawable(new Line(old_mouse_pos,now_mouse_pos),c),new Rect(old_mouse_pos,now_mouse_pos));
     }
 }

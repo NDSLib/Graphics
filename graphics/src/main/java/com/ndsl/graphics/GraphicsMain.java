@@ -2,7 +2,6 @@ package com.ndsl.graphics;
 
 import com.ndsl.graphics.display.Display;
 import com.ndsl.graphics.display.drawable.Drawable;
-import com.ndsl.graphics.display.drawable.PointDrawable;
 import com.ndsl.graphics.display.drawable.StringDrawable;
 import com.ndsl.graphics.pos.Pos;
 import com.ndsl.graphics.pos.Rect;
@@ -27,10 +26,11 @@ public class GraphicsMain {
 
         //noinspection InfiniteLoopStatement
         while (true){
+            display.debugger.setDebug(display);
             display.mouseInputHandler.setDebugDrawable();
 //            display.addDrawable(new PointDrawable(display.mouseInputHandler.getNow_mouse_pos(),"point_drawable"));
-            display.limiter.setDrawable(display);
-            display.keyHandler.setDebugGUI();
+//            display.limiter.setDrawable(display);
+//            display.keyHandler.setDebugGUI();
             if (display.limiter.onUpdate()) display.update();
         }
     }

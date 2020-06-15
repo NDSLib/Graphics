@@ -53,7 +53,7 @@ public class KeyInputHandler implements KeyListener {
 
     public String getActives(){
         StringBuilder string= new StringBuilder();
-        for (Integer integer : active_KeyList) {
+        for (Integer integer : active_KeyList.toArray(new Integer[0])) {
             string.append(getKeyString(integer)).append("\n");
         }
         return string.toString();
