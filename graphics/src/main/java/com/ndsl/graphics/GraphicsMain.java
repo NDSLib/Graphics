@@ -33,7 +33,7 @@ public class GraphicsMain {
 //        display.addDrawable(new Drawable("test_drawable"));
 //        System.out.println(display.drawableList);
 
-        display.addDrawable(new Drawable(new StringDrawable("TEST_FONT",new Font(StringDrawable.Default_Font_String,Font.BOLD,12)),new Pos(200,200),"Test_Font"));
+        display.addDrawable(new Drawable(new StringDrawable("え",new Font(StringDrawable.Default_Font_String,Font.BOLD,12)),new Pos(200,200),"Test_Font"));
 
         //noinspection InfiniteLoopStatement
         while (true){

@@ -8,7 +8,7 @@ import java.awt.*;
 import java.util.Objects;
 
 public class StringDrawable implements ICustomDrawable{
-    public static final String Default_Font_String="Arial";
+    public static final String Default_Font_String="Meiryo UI";
     public static final int Default_Font_Size=12;
     public static final Font Default_Font=new Font(Default_Font_String, Font.PLAIN, Default_Font_Size);
 
