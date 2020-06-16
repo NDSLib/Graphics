@@ -22,6 +22,11 @@ public class Debugger {
     public void setDebug(Display display){
         display.addGui(genLimiterGui(display));
         display.addGui(genKeyInputGui(display));
+        display.addGui(genMouseInputGui(display));
+    }
+
+    private GUIBase genMouseInputGui(Display display) {
+        return new GUIBase(new StringGui("MouseButton:"+display.mouseInputHandler.getButton()),new Pos(10,300),"mouse_gui");
     }
 
     private GUIBase genLimiterGui(Display display) {

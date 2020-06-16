@@ -6,11 +6,22 @@ import com.ndsl.graphics.display.drawable.StringDrawable;
 import com.ndsl.graphics.pos.Pos;
 import com.ndsl.graphics.pos.Rect;
 
+import javax.sound.sampled.LineUnavailableException;
 import java.awt.*;
+import java.util.Arrays;
 
 public class GraphicsMain {
     public static final Color Default_Color=new Color(0, 0, 0);
-    public static Display display=new Display("NDSL/Graphics",3,new Rect(new Pos(100,100),new Pos(600,600)));
+    public static Display display;
+
+    static {
+        try {
+            display = new Display("NDSL/Graphics",3,new Rect(new Pos(100,100),new Pos(600,600)));
+        } catch (LineUnavailableException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args){
         /*
           drawable remove test
@@ -28,10 +39,9 @@ public class GraphicsMain {
         while (true){
             display.debugger.setDebug(display);
             display.mouseInputHandler.setDebugDrawable();
-//            display.addDrawable(new PointDrawable(display.mouseInputHandler.getNow_mouse_pos(),"point_drawable"));
-//            display.limiter.setDrawable(display);
-//            display.keyHandler.setDebugGUI();
             if (display.limiter.onUpdate()) display.update();
+//            display.audioInput.getBufferInput();
+//            System.out.println(Arrays.toString(display.audioInput.Current_Bytes));
         }
     }
 }

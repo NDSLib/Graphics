@@ -2,6 +2,8 @@ package com.ndsl.graphics.display;
 
 import com.ndsl.graphics.Debugger;
 import com.ndsl.graphics.GraphicsMain;
+import com.ndsl.graphics.display.audio.AudioInput;
+import com.ndsl.graphics.display.audio.AudioOutput;
 import com.ndsl.graphics.display.drawable.Drawable;
 import com.ndsl.graphics.display.drawable.GUIBase;
 import com.ndsl.graphics.display.fps.FPSAttitude;
@@ -12,6 +14,7 @@ import com.ndsl.graphics.pos.Pos;
 import com.ndsl.graphics.pos.Rect;
 import org.jetbrains.annotations.Nullable;
 
+import javax.sound.sampled.LineUnavailableException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -27,7 +30,13 @@ public class Display extends JFrame {
     public MouseInputHandler mouseInputHandler;
     public Debugger debugger;
 
-    public Display(String title, int bufferSize, Rect displayBound){
+    @Deprecated
+    public AudioInput audioInput=new AudioInput(0);
+
+    @Deprecated
+    public AudioOutput audioOutput=new AudioOutput();
+
+    public Display(String title, int bufferSize, Rect displayBound) throws LineUnavailableException {
         this.setTitle(title);
         this.setBounds(displayBound.left_up.x,displayBound.left_up.y,displayBound.getWidth(),displayBound.getHeight());
         this.setVisible(true);
