@@ -3,15 +3,29 @@ package com.ndsl.graphics;
 import com.ndsl.graphics.display.Display;
 import com.ndsl.graphics.display.drawable.Drawable;
 import com.ndsl.graphics.display.drawable.StringDrawable;
+import com.ndsl.graphics.display.drawable.img.ImageDrawable;
 import com.ndsl.graphics.pos.Pos;
 import com.ndsl.graphics.pos.Rect;
 
+import javax.imageio.ImageIO;
 import javax.sound.sampled.LineUnavailableException;
 import java.awt.*;
-import java.util.Arrays;
+import java.io.File;
+import java.io.IOException;
 
 public class GraphicsMain {
     public static final Color Default_Color=new Color(0, 0, 0);
+    public static final File BunFaceFile=new File("graphics\\src\\main\\java\\com\\ndsl\\graphics\\display\\drawable\\img\\bun_face.jpg");
+    public static Image BunFace = null;
+
+    static {
+        try {
+            BunFace = ImageIO.read(BunFaceFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static Display display;
 
     static {
@@ -27,6 +41,7 @@ public class GraphicsMain {
           drawable remove test
           !PASSED!
          */
+
 //        display.addDrawable(new Drawable("A",new Pos(100,100),"test_drawable"));
 //        System.out.println(display.drawableList);
 //        System.out.println("GetWithID:"+display.getDrawableWithID("test_drawable"));
@@ -34,14 +49,12 @@ public class GraphicsMain {
 //        System.out.println(display.drawableList);
 
         display.addDrawable(new Drawable(new StringDrawable("え",new Font(StringDrawable.Default_Font_String,Font.BOLD,12)),new Pos(200,200),"Test_Font"));
-
+        display.addDrawable(new Drawable(new ImageDrawable(BunFace),new Pos(200,200),"bun_face"));
         //noinspection InfiniteLoopStatement
         while (true){
             display.debugger.setDebug(display);
             display.mouseInputHandler.setDebugDrawable();
             if (display.limiter.onUpdate()) display.update();
-//            display.audioInput.getBufferInput();
-//            System.out.println(Arrays.toString(display.audioInput.Current_Bytes));
         }
     }
 }

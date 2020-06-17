@@ -35,4 +35,11 @@ public class Rect {
         pos[3]=right_down;
         return pos;
     }
+
+    public void zoom(double zoomScale) {
+        this.left_up.x*=zoomScale;
+        this.left_up.y*=zoomScale;
+        this.right_down.x*=zoomScale;
+        this.right_down.y*=zoomScale;
+    }
 }

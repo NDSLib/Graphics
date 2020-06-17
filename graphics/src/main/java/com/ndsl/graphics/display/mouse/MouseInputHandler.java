@@ -3,7 +3,7 @@ package com.ndsl.graphics.display.mouse;
 import com.ndsl.graphics.display.Display;
 import com.ndsl.graphics.display.drawable.Drawable;
 import com.ndsl.graphics.display.drawable.LineDrawable;
-import com.ndsl.graphics.display.drawable.PointDrawable;
+import com.ndsl.graphics.display.drawable.ui.MouseUIListener;
 import com.ndsl.graphics.pos.Line;
 import com.ndsl.graphics.pos.Pos;
 import com.ndsl.graphics.pos.Rect;
@@ -13,6 +13,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
 
 public class MouseInputHandler implements MouseMotionListener,MouseListener {
     public Pos now_mouse_pos=new Pos(0,0);
@@ -37,6 +38,7 @@ public class MouseInputHandler implements MouseMotionListener,MouseListener {
     public void mouseDragged(MouseEvent e) {
         setDoubleClick(e);
         setNow_mouse_pos(e);
+        register.hook(e,MouseEventType.Drug);
         isClicking=true;
     }
 
@@ -44,6 +46,7 @@ public class MouseInputHandler implements MouseMotionListener,MouseListener {
     public void mouseMoved(MouseEvent e) {
         setDoubleClick(e);
         setNow_mouse_pos(e);
+        register.hook(e,MouseEventType.Hover);
         isClicking=false;
     }
 
@@ -52,6 +55,7 @@ public class MouseInputHandler implements MouseMotionListener,MouseListener {
         setDoubleClick(e);
         setNow_mouse_pos(e);
         setMouseButton(e);
+        register.hook(e,MouseEventType.Click);
         isClicking=true;
     }
 
@@ -60,6 +64,7 @@ public class MouseInputHandler implements MouseMotionListener,MouseListener {
         setDoubleClick(e);
         setNow_mouse_pos(e);
         setMouseButton(e);
+        register.hook(e,MouseEventType.Click);
         isClicking=true;
     }
 
@@ -68,6 +73,7 @@ public class MouseInputHandler implements MouseMotionListener,MouseListener {
         setDoubleClick(e);
         setNow_mouse_pos(e);
         setMouseButton(e);
+        register.hook(e,MouseEventType.Hover);
         isClicking=false;
     }
 
@@ -76,6 +82,7 @@ public class MouseInputHandler implements MouseMotionListener,MouseListener {
         setDoubleClick(e);
         setNow_mouse_pos(e);
         setMouseButton(e);
+        register.hook(e,MouseEventType.Hover);
         isClicking=false;
     }
 
@@ -84,6 +91,7 @@ public class MouseInputHandler implements MouseMotionListener,MouseListener {
         setDoubleClick(e);
         setNow_mouse_pos(e);
         setMouseButton(e);
+        register.hook(e,MouseEventType.Hover);
         isClicking=false;
     }
 
@@ -146,5 +154,46 @@ public class MouseInputHandler implements MouseMotionListener,MouseListener {
     public int getButton(){
         if(!isClicking) return 0;
         return Current_Mouse_Button;
+    }
+
+    public register register=new register();
+    public class register{
+        private register(){}
+
+        public ArrayList<MouseUIListener> listenerList=new ArrayList<>();
+
+        public register add(MouseUIListener listener){
+            listenerList.add(listener);
+            return this;
+        }
+
+        public register remove(MouseUIListener listener){
+            listenerList.remove(listener);
+            return this;
+        }
+
+        public void hook(MouseEvent e,MouseEventType eventType){
+            CustomMouseEvent event=genEvent(e,eventType);
+            for(MouseUIListener listener:listenerList){
+                switch (eventType){
+                    case Drug:
+                        listener.onDrug(event);
+                        break;
+                    case Click:
+                        listener.onClick(event);
+                        break;
+                    case Hover:
+                        listener.onHover(event);
+                        break;
+                    case DoubleClick:
+                        listener.onDoubleClick(event);
+                        break;
+                }
+            }
+        }
+
+        public CustomMouseEvent genEvent(MouseEvent event,MouseEventType type){
+            return new CustomMouseEvent(event,MouseInputHandler.this,type);
+        }
     }
 }

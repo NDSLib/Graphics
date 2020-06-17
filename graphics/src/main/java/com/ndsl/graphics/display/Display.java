@@ -6,6 +6,8 @@ import com.ndsl.graphics.display.audio.AudioInput;
 import com.ndsl.graphics.display.audio.AudioOutput;
 import com.ndsl.graphics.display.drawable.Drawable;
 import com.ndsl.graphics.display.drawable.GUIBase;
+import com.ndsl.graphics.display.drawable.ui.MouseUIListener;
+import com.ndsl.graphics.display.drawable.ui.UIBase;
 import com.ndsl.graphics.display.fps.FPSAttitude;
 import com.ndsl.graphics.display.fps.FPSLimiter;
 import com.ndsl.graphics.display.key.KeyInputHandler;
@@ -51,6 +53,7 @@ public class Display extends JFrame {
 
     public List<Drawable> drawableList=new ArrayList<>();
     public List<GUIBase> guiList=new ArrayList<>();
+    public List<UIBase> uiList=new ArrayList<>();
 
     public boolean isShowing(Drawable drawable){
         return drawable.getShowingRect().contain(getDisplayShowingRect());
@@ -134,6 +137,14 @@ public class Display extends JFrame {
         return this;
     }
 
+    public Display addUI(UIBase e){
+        if(isExist(e.getID())){
+            this.uiList.remove(e);
+        }
+        this.uiList.add(e);
+        return this;
+    }
+
     @Nullable
     public Drawable getDrawableWithID(String id){
         for(Drawable drawable:drawableList){
@@ -156,8 +167,19 @@ public class Display extends JFrame {
         return null;
     }
 
+    @Nullable
+    private UIBase getUIWithID(String drawable_id) {
+        for(UIBase uiBase:uiList){
+            if(uiBase.getID()==null) continue;
+            if(uiBase.getID().equals(drawable_id)){
+                return uiBase;
+            }
+        }
+        return null;
+    }
+
     public boolean isExist(String drawable_id){
-        return getDrawableWithID(drawable_id)!=null || getGuiWithID(drawable_id)!=null;
+        return getDrawableWithID(drawable_id)!=null || getGuiWithID(drawable_id)!=null || getUIWithID(drawable_id)!=null;
     }
 
 
@@ -177,5 +199,10 @@ public class Display extends JFrame {
 
     public boolean isKeyPressing(int key_code){
         return this.keyHandler.isKeyPressing(key_code);
+    }
+
+    public Display addMouseListener(MouseUIListener listener){
+        this.mouseInputHandler.register.add(listener);
+        return this;
     }
 }
