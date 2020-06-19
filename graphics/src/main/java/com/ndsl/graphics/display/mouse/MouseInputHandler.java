@@ -16,6 +16,9 @@ import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
 public class MouseInputHandler implements MouseMotionListener,MouseListener {
+    public static final int MOUSE_LEFT_BUTTON=1;
+    public static final int MOUSE_RIGHT_BUTTON=2;
+
     public Pos now_mouse_pos=new Pos(0,0);
     public Pos old_mouse_pos=new Pos(0,0);
     public boolean isClicking=false;
@@ -73,7 +76,7 @@ public class MouseInputHandler implements MouseMotionListener,MouseListener {
         setDoubleClick(e);
         setNow_mouse_pos(e);
         setMouseButton(e);
-        register.hook(e,MouseEventType.Hover);
+        register.hook(e,MouseEventType.RELEASE);
         isClicking=false;
     }
 
@@ -156,7 +159,9 @@ public class MouseInputHandler implements MouseMotionListener,MouseListener {
         return Current_Mouse_Button;
     }
 
+    @Deprecated
     public register register=new register();
+    @Deprecated
     public class register{
         private register(){}
 
@@ -172,9 +177,13 @@ public class MouseInputHandler implements MouseMotionListener,MouseListener {
             return this;
         }
 
+        @Deprecated
         public void hook(MouseEvent e,MouseEventType eventType){
             CustomMouseEvent event=genEvent(e,eventType);
-            for(MouseUIListener listener:listenerList){
+            Pos pos=new Pos(e.getPoint());
+            for(MouseUIListener listener:listenerList.toArray(new MouseUIListener[0])){
+//                if(!pos.contain(listener.getUIRect(display))) continue;
+//                System.out.println("hook!");
                 switch (eventType){
                     case Drug:
                         listener.onDrug(event);
@@ -187,6 +196,9 @@ public class MouseInputHandler implements MouseMotionListener,MouseListener {
                         break;
                     case DoubleClick:
                         listener.onDoubleClick(event);
+                        break;
+                    case RELEASE:
+                        listener.onRelease(event);
                         break;
                 }
             }

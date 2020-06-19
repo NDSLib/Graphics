@@ -2,8 +2,11 @@ package com.ndsl.graphics;
 
 import com.ndsl.graphics.display.Display;
 import com.ndsl.graphics.display.drawable.Drawable;
+import com.ndsl.graphics.display.drawable.RectDrawable;
 import com.ndsl.graphics.display.drawable.StringDrawable;
 import com.ndsl.graphics.display.drawable.img.ImageDrawable;
+import com.ndsl.graphics.display.drawable.ui.Button;
+import com.ndsl.graphics.display.drawable.ui.UIBase;
 import com.ndsl.graphics.pos.Pos;
 import com.ndsl.graphics.pos.Rect;
 
@@ -54,6 +57,8 @@ public class GraphicsMain {
         while (true){
             display.debugger.setDebug(display);
             display.mouseInputHandler.setDebugDrawable();
+            Button.genAndAddButton(new Rect(new Pos(100,100),new Pos(150,150)),display,"button_id");
+            display.addDrawable(new Drawable(new RectDrawable(Color.CYAN),new Rect(new Pos(100,100),new Pos(150,150)),"button_rect"));
             if (display.limiter.onUpdate()) display.update();
         }
     }

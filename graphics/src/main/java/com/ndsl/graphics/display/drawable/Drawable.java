@@ -54,7 +54,7 @@ public class Drawable {
     }
 
     public Rect getShowingRect(){
-        if(left_up==null) return drawRect;
+        if(drawRect!=null) return drawRect;
         return new Rect(left_up,left_up);
     }
 

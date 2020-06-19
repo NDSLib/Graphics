@@ -27,6 +27,10 @@ public class Rect {
         return false;
     }
 
+    public boolean contain(Pos pos){
+        return left_up.x<=pos.x && left_up.y<=pos.y && right_down.x>=pos.x && right_down.y >=pos.y;
+    }
+
     public Pos[] getAllPoint(){
         Pos[] pos=new Pos[4];
         pos[0]=left_up;
@@ -41,5 +45,10 @@ public class Rect {
         this.left_up.y*=zoomScale;
         this.right_down.x*=zoomScale;
         this.right_down.y*=zoomScale;
+    }
+
+    @Override
+    public String toString() {
+        return "{"+this.left_up.toString() + " " + this.right_down.toString()+"}";
     }
 }

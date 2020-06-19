@@ -103,6 +103,14 @@ public class Display extends JFrame {
                 need_draw=true;
             }
         }
+        for(UIBase d:uiList){
+            if(isShowing(d)){
+                if(!need_draw) clear();
+                d.onDraw(g);
+                resetGraphics(g);
+                need_draw=true;
+            }
+        }
         if(need_draw) repaint();
     }
     private void resetGraphics(Graphics graphics){
@@ -137,6 +145,9 @@ public class Display extends JFrame {
         return this;
     }
 
+    /**
+     * @apiNote if UI implements MouseUIListener
+     */
     public Display addUI(UIBase e){
         if(isExist(e.getID())){
             this.uiList.remove(e);
@@ -199,10 +210,5 @@ public class Display extends JFrame {
 
     public boolean isKeyPressing(int key_code){
         return this.keyHandler.isKeyPressing(key_code);
-    }
-
-    public Display addMouseListener(MouseUIListener listener){
-        this.mouseInputHandler.register.add(listener);
-        return this;
     }
 }
