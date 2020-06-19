@@ -1,30 +1,21 @@
 package com.ndsl.graphics.display.drawable.ui;
 
+import com.ndsl.graphics.display.Display;
+import com.ndsl.graphics.display.drawable.Drawable;
 import com.ndsl.graphics.display.drawable.GUIBase;
+import com.ndsl.graphics.display.drawable.RectDrawable;
 import com.ndsl.graphics.pos.Pos;
 import com.ndsl.graphics.pos.Rect;
 
 import java.awt.*;
 
 public class UIBase extends GUIBase {
-    public UIBase(Object o, Pos left_up) {
-        super(o, left_up);
-    }
-
-    public UIBase(Object o, Rect rect) {
-        super(o, rect);
-    }
-
     public UIBase(Object o, Pos pos, String id) {
         super(o, pos, id);
     }
 
     public UIBase(Object o, Rect rect, String id) {
         super(o, rect, id);
-    }
-
-    public UIBase(String s) {
-        super(s);
     }
 
     @Override
@@ -49,5 +40,10 @@ public class UIBase extends GUIBase {
         }else{
             return false;
         }
+    }
+
+    public UIBase setDebug(Display display){
+        display.addDrawable(new Drawable(new RectDrawable(Color.MAGENTA),super.getShowingRect(),getID()+"_debug"));
+        return this;
     }
 }

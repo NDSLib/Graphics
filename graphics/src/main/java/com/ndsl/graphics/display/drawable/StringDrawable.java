@@ -40,16 +40,10 @@ public class StringDrawable implements ICustomDrawable{
     }
 
     public void drawString(String data,Graphics g,Rect rect){
-        String[] datas=data.split("\n");
-        for (int i = 0; i <datas.length; i++) {
-            g.drawString(datas[i],rect.left_up.x,rect.left_up.y+i*Default_Font_Size);
-        }
+        DrawableUtil.drawString(data,g,rect,Default_Font_Size);
     }
 
     public void drawString(String data,Graphics g,Rect rect,int fontsize){
-        String[] datas=data.split("\n");
-        for (int i = 0; i <datas.length; i++) {
-            g.drawString(datas[i],rect.left_up.x,rect.left_up.y+i*fontsize);
-        }
+        DrawableUtil.drawString(data,g,rect,fontsize);
     }
 }

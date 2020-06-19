@@ -1,6 +1,7 @@
 package com.ndsl.graphics.display.drawable.ui;
 
 import com.ndsl.graphics.display.Display;
+import com.ndsl.graphics.display.drawable.DrawableUtil;
 import com.ndsl.graphics.display.drawable.GUIBase;
 import com.ndsl.graphics.display.drawable.StringGui;
 import com.ndsl.graphics.pos.Rect;
@@ -29,14 +30,13 @@ public class Button implements ICustomUI{
         return new UIBase(new Button(rect,display),rect,id);
     }
 
-    public static void genAndAddButton(Rect rect,Display display,String id){
-        display.addUI(genButtonUI(rect, display, id));
+    public static UIBase genAndAddButton(Rect rect,Display display,String id){
+        UIBase uiBase=genButtonUI(rect, display, id);
+        display.addUI(uiBase);
+        return uiBase;
     }
 
     public void drawString(@NotNull String data, Graphics g, Rect rect, int fontsize){
-        String[] datas=data.split("\n");
-        for (int i = 0; i <datas.length; i++) {
-            g.drawString(datas[i],rect.left_up.x,rect.left_up.y+i*fontsize);
-        }
+        DrawableUtil.drawString(data,g,rect,fontsize);
     }
 }

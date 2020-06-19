@@ -6,24 +6,12 @@ import com.ndsl.graphics.pos.Rect;
 import java.awt.*;
 
 public class GUIBase extends Drawable{
-    public GUIBase(Object o, Pos left_up) {
-        super(o, left_up);
-    }
-
-    public GUIBase(Object o, Rect rect) {
-        super(o, rect);
-    }
-
     public GUIBase(Object o, Pos pos, String id) {
         super(o, pos, id);
     }
 
     public GUIBase(Object o, Rect rect, String id) {
         super(o, rect, id);
-    }
-
-    public GUIBase(String s) {
-        super(s);
     }
 
     @Override

@@ -9,13 +9,15 @@ import java.awt.*;
 public class Drawable {
     public Object drawObject;
     public Pos left_up=null;
-    public Drawable(Object o, Pos left_up){
+    @Deprecated
+    protected Drawable(Object o, Pos left_up){
         drawObject=o;
         this.left_up=left_up;
     }
 
     public Rect drawRect=null;
 
+    @Deprecated
     public Drawable(Object o, Rect rect){
         drawObject=o;
         this.drawRect=rect;
@@ -34,10 +36,7 @@ public class Drawable {
         Drawable_id=id;
     }
 
-    public Drawable(String s){
-        this("ForIDOnlyObject",new Pos(-1000,-1000));
-        Drawable_id=s;
-    }
+
 
     public void onDraw(Graphics g){
         if(g==null) {

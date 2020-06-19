@@ -30,7 +30,7 @@ public class Debugger {
     }
 
     private GUIBase genLimiterGui(Display display) {
-        return new GUIBase(new StringGui("FPS:"+limiter.getFPS()+"\n"+"MaxFPS:"+limiter.MaxFPS+"\n"+"LimitedFPS:"+limiter.limitedFPS+"\n"+"FramesCount:"+limiter.FPSCount+"\n"+"GoodFrames:"+limiter.GoodFrameCount+"\n"+"FrameHealth:"+limiter.getFrameHealth()+"\n"+"DrawableCounts:"+display.drawableList.size()),new Pos(10,40),"debugger_view");
+        return new GUIBase(new StringGui("FPS:"+limiter.getFPS()+"\n"+"MaxFPS:"+limiter.MaxFPS+"\n"+"LimitedFPS:"+limiter.limitedFPS+"\n"+"FramesCount:"+limiter.FPSCount+"\n"+"GoodFrames:"+limiter.GoodFrameCount+"\n"+"FrameHealth:"+limiter.getFrameHealth()+"\n"+"DrawableCounts:"+display.drawableList.size()),new Pos(10,30),"debugger_view");
     }
 
     private GUIBase genKeyInputGui(Display display){

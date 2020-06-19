@@ -57,8 +57,8 @@ public class GraphicsMain {
         while (true){
             display.debugger.setDebug(display);
             display.mouseInputHandler.setDebugDrawable();
-            Button.genAndAddButton(new Rect(new Pos(100,100),new Pos(150,150)),display,"button_id");
-            display.addDrawable(new Drawable(new RectDrawable(Color.CYAN),new Rect(new Pos(100,100),new Pos(150,150)),"button_rect"));
+            Button.genAndAddButton(new Rect(new Pos(150,100),new Pos(200,150)),display,"button_id");
+            display.addDrawable(new Drawable(new RectDrawable(Color.CYAN),new Rect(new Pos(150,100),new Pos(200,150)),"button_rect"));
             if (display.limiter.onUpdate()) display.update();
         }
     }

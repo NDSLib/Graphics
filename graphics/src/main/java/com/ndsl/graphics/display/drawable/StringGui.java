@@ -40,10 +40,7 @@ public class StringGui implements ICustomGui{
     }
 
     public void drawString(@NotNull String data, Graphics g, Rect rect, int fontsize){
-        String[] datas=data.split("\n");
-        for (int i = 0; i <datas.length; i++) {
-            g.drawString(datas[i],rect.left_up.x,rect.left_up.y+i*fontsize);
-        }
+        DrawableUtil.drawString(data,g,rect,fontsize);
     }
 
     @Override
