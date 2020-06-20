@@ -12,6 +12,7 @@ import com.ndsl.graphics.display.fps.FPSAttitude;
 import com.ndsl.graphics.display.fps.FPSLimiter;
 import com.ndsl.graphics.display.key.KeyInputHandler;
 import com.ndsl.graphics.display.mouse.MouseInputHandler;
+import com.ndsl.graphics.display.scene.SceneManager;
 import com.ndsl.graphics.pos.Pos;
 import com.ndsl.graphics.pos.Rect;
 import org.jetbrains.annotations.Nullable;
@@ -31,6 +32,8 @@ public class Display extends JFrame {
     public KeyInputHandler keyHandler;
     public MouseInputHandler mouseInputHandler;
     public Debugger debugger;
+
+    public SceneManager sceneManager=new SceneManager();
 
     @Deprecated
     public AudioInput audioInput=new AudioInput(0);
