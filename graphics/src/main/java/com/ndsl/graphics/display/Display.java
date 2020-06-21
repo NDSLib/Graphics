@@ -81,6 +81,10 @@ public class Display extends JFrame {
 //        return drawable.getShowingRect().contain(getDisplayShowingRect());
     }
 
+    public boolean isShowing(RealTimeDrawable d) {
+        return getDisplayShowingRect().contain(d.getShowingRect());
+    }
+
     public boolean isShowing(GUIBase guiBase){
         return true;
     }
