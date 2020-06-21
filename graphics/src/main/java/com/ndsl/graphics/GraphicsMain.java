@@ -18,28 +18,23 @@ import java.io.IOException;
 
 public class GraphicsMain {
     public static final Color Default_Color=new Color(0, 0, 0);
-    public static final File BunFaceFile=new File("graphics\\src\\main\\java\\com\\ndsl\\graphics\\display\\drawable\\img\\bun_face.jpg");
-    public static Image BunFace = null;
+    public final File BunFaceFile=new File("graphics\\src\\main\\java\\com\\ndsl\\graphics\\display\\drawable\\img\\bun_face.jpg");
+    public Image BunFace = null;
 
-    static {
+    public Display display;
+
+    public static void main(String[] args){
+        new GraphicsMain().onRun();
+    }
+
+    public void onRun(){
+        display = new Display("NDSL/Graphics",3,new Rect(new Pos(100,100),new Pos(600,600)));
         try {
             BunFace = ImageIO.read(BunFaceFile);
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
 
-    public static Display display;
-
-    static {
-        try {
-            display = new Display("NDSL/Graphics",3,new Rect(new Pos(100,100),new Pos(600,600)));
-        } catch (LineUnavailableException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void main(String[] args){
         /*
           drawable remove test
           !PASSED!

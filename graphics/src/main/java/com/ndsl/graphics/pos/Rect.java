@@ -1,5 +1,7 @@
 package com.ndsl.graphics.pos;
 
+import java.awt.geom.Rectangle2D;
+
 public class Rect {
     public Pos left_up;
     public Pos right_down;
@@ -7,6 +9,10 @@ public class Rect {
     public Rect(Pos left_up,Pos right_down){
         this.left_up=left_up;
         this.right_down=right_down;
+    }
+
+    public Rect(Rectangle2D rect){
+        this(new Pos((int)rect.getX(),(int)rect.getY()),new Pos((int)rect.getX()+(int)rect.getWidth(),(int)rect.getY()+(int)rect.getHeight()));
     }
 
     public int getHeight(){

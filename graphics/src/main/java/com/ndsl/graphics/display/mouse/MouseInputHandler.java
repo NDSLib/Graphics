@@ -76,6 +76,7 @@ public class MouseInputHandler implements MouseMotionListener,MouseListener {
         setDoubleClick(e);
         setNow_mouse_pos(e);
         setMouseButton(e);
+        Current_Mouse_Button=0;
         register.hook(e,MouseEventType.RELEASE);
         isClicking=false;
     }

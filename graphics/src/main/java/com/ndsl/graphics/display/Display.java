@@ -15,6 +15,7 @@ import com.ndsl.graphics.display.mouse.MouseInputHandler;
 import com.ndsl.graphics.display.scene.SceneManager;
 import com.ndsl.graphics.pos.Pos;
 import com.ndsl.graphics.pos.Rect;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.sound.sampled.LineUnavailableException;
@@ -27,7 +28,7 @@ import java.util.List;
 public class Display extends JFrame {
 
     public FPSLimiter limiter =new FPSLimiter(120, FPSAttitude.KEEP_UP_FPS);
-
+    public long Start_Time;
     public BufferStrategy bufferStrategy;
     public KeyInputHandler keyHandler;
     public MouseInputHandler mouseInputHandler;
@@ -35,13 +36,13 @@ public class Display extends JFrame {
 
     public SceneManager sceneManager=new SceneManager();
 
-    @Deprecated
-    public AudioInput audioInput=new AudioInput(0);
+//    @Deprecated
+//    public AudioInput audioInput=new AudioInput(0);
 
-    @Deprecated
-    public AudioOutput audioOutput=new AudioOutput();
+//    @Deprecated
+//    public AudioOutput audioOutput=new AudioOutput();
 
-    public Display(String title, int bufferSize, Rect displayBound) throws LineUnavailableException {
+    public Display(String title, int bufferSize, @NotNull Rect displayBound) {
         this.setTitle(title);
         this.setBounds(displayBound.left_up.x,displayBound.left_up.y,displayBound.getWidth(),displayBound.getHeight());
         this.setVisible(true);
@@ -52,6 +53,11 @@ public class Display extends JFrame {
         this.mouseInputHandler=new MouseInputHandler(this);
 //        this.setAlwaysOnTop(true);
         this.debugger=new Debugger(limiter,keyHandler,mouseInputHandler);
+        Start_Time=System.currentTimeMillis();
+    }
+
+    public long getDeltaTime(){
+        return System.currentTimeMillis()-Start_Time;
     }
 
     public List<Drawable> drawableList=new ArrayList<>();
