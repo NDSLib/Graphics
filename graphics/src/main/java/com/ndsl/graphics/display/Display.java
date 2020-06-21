@@ -196,7 +196,7 @@ public class Display extends JFrame {
         return this;
     }
 
-    public Display RealTimeDrawable(RealTimeDrawable e){
+    public Display addRealTimeDrawable(RealTimeDrawable e){
         if(isExist(e.getID())){
             this.realTimeDrawables.remove(e);
         }
