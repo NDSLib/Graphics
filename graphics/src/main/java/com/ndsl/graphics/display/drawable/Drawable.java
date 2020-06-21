@@ -49,6 +49,8 @@ public class Drawable {
             g.drawString((String)drawObject,left_up.x, left_up.y);
         }else if(drawObject instanceof ICustomDrawable){
             ((ICustomDrawable) drawObject).onDraw(g,getShowingRect());
+        }else if(drawObject instanceof IRealTimeCustomDrawable){
+            ((IRealTimeCustomDrawable) drawObject).onDraw(g,getShowingRect());
         }
     }
 
