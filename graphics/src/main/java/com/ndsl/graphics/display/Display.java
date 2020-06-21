@@ -6,6 +6,7 @@ import com.ndsl.graphics.display.audio.AudioInput;
 import com.ndsl.graphics.display.audio.AudioOutput;
 import com.ndsl.graphics.display.drawable.Drawable;
 import com.ndsl.graphics.display.drawable.GUIBase;
+import com.ndsl.graphics.display.drawable.RealTimeDrawable;
 import com.ndsl.graphics.display.drawable.ui.MouseUIListener;
 import com.ndsl.graphics.display.drawable.ui.UIBase;
 import com.ndsl.graphics.display.fps.FPSAttitude;
@@ -73,9 +74,11 @@ public class Display extends JFrame {
     public List<Drawable> drawableList=new ArrayList<>();
     public List<GUIBase> guiList=new ArrayList<>();
     public List<UIBase> uiList=new ArrayList<>();
+    public List<RealTimeDrawable> realTimeDrawables=new ArrayList<>();
 
     public boolean isShowing(Drawable drawable){
-        return drawable.getShowingRect().contain(getDisplayShowingRect());
+        return getDisplayShowingRect().contain(drawable.getShowingRect());
+//        return drawable.getShowingRect().contain(getDisplayShowingRect());
     }
 
     public boolean isShowing(GUIBase guiBase){
@@ -125,6 +128,15 @@ public class Display extends JFrame {
             }
         }
         for(UIBase d:uiList){
+            if(isShowing(d)){
+                if(!need_draw) clear();
+                d.onDraw(g);
+                if(isDebuggingMode) drawDebugRect(d.getShowingRect(),g);
+                resetGraphics(g);
+                need_draw=true;
+            }
+        }
+        for(RealTimeDrawable d:realTimeDrawables){
             if(isShowing(d)){
                 if(!need_draw) clear();
                 d.onDraw(g);
@@ -184,6 +196,14 @@ public class Display extends JFrame {
         return this;
     }
 
+    public Display RealTimeDrawable(RealTimeDrawable e){
+        if(isExist(e.getID())){
+            this.realTimeDrawables.remove(e);
+        }
+        this.realTimeDrawables.add(e);
+        return this;
+    }
+
     @Nullable
     public Drawable getDrawableWithID(String id){
         for(Drawable drawable:drawableList){
@@ -217,9 +237,20 @@ public class Display extends JFrame {
         return null;
     }
 
-    public boolean isExist(String drawable_id){
-        return getDrawableWithID(drawable_id)!=null || getGuiWithID(drawable_id)!=null || getUIWithID(drawable_id)!=null;
+    private RealTimeDrawable getRealTimeDrawableWithID(String drawable_id) {
+        for(RealTimeDrawable d:realTimeDrawables){
+            if(d.getID()==null) continue;
+            if(d.getID().equals(drawable_id)){
+                return d;
+            }
+        }
+        return null;
     }
+
+    public boolean isExist(String drawable_id){
+        return getDrawableWithID(drawable_id)!=null || getGuiWithID(drawable_id)!=null || getUIWithID(drawable_id)!=null || getRealTimeDrawableWithID(drawable_id) != null;
+    }
+
 
 
     /**
