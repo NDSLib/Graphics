@@ -15,4 +15,11 @@ public class RealTimeDrawable extends Drawable{
     public Rect getShowingRect() {
         return d.getShowingRect();
     }
+
+    @Override
+    public void onDraw(Graphics g){
+        if(drawObject instanceof IRealTimeCustomDrawable){
+            ((IRealTimeCustomDrawable) drawObject).onDraw(g,getShowingRect());
+        }
+    }
 }
