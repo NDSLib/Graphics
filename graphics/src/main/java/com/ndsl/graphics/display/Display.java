@@ -34,6 +34,16 @@ public class Display extends JFrame {
     public MouseInputHandler mouseInputHandler;
     public Debugger debugger;
 
+    public boolean isDebuggingMode = false;
+    public Display setDebugMode(boolean isDebuggingMode){
+        this.isDebuggingMode=isDebuggingMode;
+        return this;
+    }
+    public Color DebugColor=Color.MAGENTA;
+    public Display setDebugColor(Color color){
+        DebugColor=color;
+        return this;
+    }
     public SceneManager sceneManager=new SceneManager();
 
 //    @Deprecated
@@ -100,6 +110,7 @@ public class Display extends JFrame {
             if(isShowing(d)){
                 if(!need_draw) clear();
                 d.onDraw(g);
+                if(isDebuggingMode) drawDebugRect(d.getShowingRect(),g);
                 resetGraphics(g);
                 need_draw=true;
             }
@@ -108,6 +119,7 @@ public class Display extends JFrame {
             if(isShowing(d)){
                 if(!need_draw) clear();
                 d.onDraw(g);
+                if(isDebuggingMode) drawDebugRect(d.getShowingRect(),g);
                 resetGraphics(g);
                 need_draw=true;
             }
@@ -116,12 +128,19 @@ public class Display extends JFrame {
             if(isShowing(d)){
                 if(!need_draw) clear();
                 d.onDraw(g);
+                if(isDebuggingMode) drawDebugRect(d.getShowingRect(),g);
                 resetGraphics(g);
                 need_draw=true;
             }
         }
         if(need_draw) repaint();
     }
+
+    private void drawDebugRect(Rect showingRect, Graphics g) {
+        g.setColor(DebugColor);
+        g.drawRect(showingRect.left_up.x,showingRect.left_up.y,showingRect.getWidth(),showingRect.getHeight());
+    }
+
     private void resetGraphics(Graphics graphics){
         graphics.setColor(GraphicsMain.Default_Color);
     }

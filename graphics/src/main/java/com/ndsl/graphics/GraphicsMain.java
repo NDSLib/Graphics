@@ -45,9 +45,9 @@ public class GraphicsMain {
 //        System.out.println("GetWithID:"+display.getDrawableWithID("test_drawable"));
 //        display.addDrawable(new Drawable("test_drawable"));
 //        System.out.println(display.drawableList);
-
+        display.setDebugMode(true);
         display.addDrawable(new Drawable(new StringDrawable("え",new Font(StringDrawable.Default_Font_String,Font.BOLD,12)),new Pos(200,200),"Test_Font"));
-        display.addDrawable(new Drawable(new ImageDrawable(BunFace),new Pos(200,200),"bun_face"));
+        display.addDrawable(new Drawable(new ImageDrawable(BunFace),new Rect(200,200,300,300),"bun_face"));
         //noinspection InfiniteLoopStatement
         while (true){
             display.debugger.setDebug(display);

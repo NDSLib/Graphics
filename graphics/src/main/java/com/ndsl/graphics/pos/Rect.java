@@ -11,6 +11,10 @@ public class Rect {
         this.right_down=right_down;
     }
 
+    public Rect(int l_u_x,int l_u_y,int r_u_x,int r_u_y){
+        this(new Pos(l_u_x,l_u_y),new Pos(r_u_x,r_u_y));
+    }
+
     public Rect(Rectangle2D rect){
         this(new Pos((int)rect.getX(),(int)rect.getY()),new Pos((int)rect.getX()+(int)rect.getWidth(),(int)rect.getY()+(int)rect.getHeight()));
     }
