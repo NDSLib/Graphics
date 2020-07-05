@@ -122,6 +122,7 @@ public class MouseInputHandler implements MouseMotionListener,MouseListener {
         }
     }
 
+    private long count=0;
     @Nullable
     private Drawable genDrawable() {
         Color c;
@@ -152,7 +153,7 @@ public class MouseInputHandler implements MouseMotionListener,MouseListener {
         if(now_mouse_pos.x<=0 || now_mouse_pos.y<=0){
             return null;
         }
-        return new Drawable(new LineDrawable(new Line(old_mouse_pos,now_mouse_pos),c),new Rect(old_mouse_pos,now_mouse_pos));
+        return new Drawable(new LineDrawable(new Line(old_mouse_pos,now_mouse_pos),c,"Mouse"+count));
     }
 
     public int getButton(){

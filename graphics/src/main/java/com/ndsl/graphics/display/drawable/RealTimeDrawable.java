@@ -1,25 +1,46 @@
 package com.ndsl.graphics.display.drawable;
 
+import com.ndsl.graphics.display.Display;
 import com.ndsl.graphics.pos.Rect;
 
 import java.awt.*;
 
-public class RealTimeDrawable extends Drawable{
-    public IRealTimeCustomDrawable d;
-    public RealTimeDrawable(IRealTimeCustomDrawable d,String id){
-        super(d,d.getShowingRect(),id);
+public class RealTimeDrawable implements IDrawable{
+    public IDrawable d;
+    public Rect rect;
+    public String id;
+    public RealTimeDrawable(IDrawable d,String id){
         this.d=d;
+        this.rect=d.getShowingRect();
+        this.id=id;
+    }
+
+    @Override
+    public void onDraw(Graphics g, Rect showingRect) {
+        d.onDraw(g,showingRect);
+    }
+
+    public void onDraw(Graphics g) {
+        d.onDraw(g,getShowingRect());
     }
 
     @Override
     public Rect getShowingRect() {
-        return d.getShowingRect();
+        return rect;
     }
 
     @Override
-    public void onDraw(Graphics g){
-        if(drawObject instanceof IRealTimeCustomDrawable){
-            ((IRealTimeCustomDrawable) drawObject).onDraw(g,getShowingRect());
-        }
+    public boolean isShowing(Display display) {
+        return display.isShowing(getShowingRect());
+    }
+
+    @Override
+    public String getID() {
+        return id;
+    }
+
+    public RealTimeDrawable setRect(Rect r){
+        this.rect=r;
+        return this;
     }
 }

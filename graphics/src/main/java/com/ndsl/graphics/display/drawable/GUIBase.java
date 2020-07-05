@@ -1,17 +1,17 @@
 package com.ndsl.graphics.display.drawable;
 
+import com.ndsl.graphics.display.Display;
 import com.ndsl.graphics.pos.Pos;
 import com.ndsl.graphics.pos.Rect;
 
 import java.awt.*;
 
-public class GUIBase extends Drawable{
-    public GUIBase(Object o, Pos pos, String id) {
-        super(o, pos, id);
-    }
-
-    public GUIBase(Object o, Rect rect, String id) {
-        super(o, rect, id);
+public class GUIBase implements IDrawable{
+    public IDrawable drawObject;
+    public String id;
+    public GUIBase(IDrawable drawObject) {
+        this.drawObject=drawObject;
+        this.id=drawObject.getID();
     }
 
     @Override
@@ -20,7 +20,7 @@ public class GUIBase extends Drawable{
             if(((GUIBase) obj).getID()!=null) {
                 if (((GUIBase) obj).getID().equals(getID())) return true;
             }
-            if (((GUIBase)obj).left_up.equals(left_up)){
+            if (((GUIBase)obj).getShowingRect().left_up.equals(getShowingRect().left_up)){
                 return ((GUIBase)obj).drawObject.equals(drawObject);
             }else{
                 return false;
@@ -31,10 +31,22 @@ public class GUIBase extends Drawable{
     }
 
     @Override
-    public void onDraw(Graphics g) {
-        super.onDraw(g);
-        if(drawObject instanceof ICustomGui){
-            ((ICustomGui) drawObject).onDraw(g,getShowingRect());
-        }
+    public void onDraw(Graphics g, Rect showingRect) {
+        drawObject.onDraw(g,getShowingRect());
+    }
+
+    @Override
+    public Rect getShowingRect() {
+        return drawObject.getShowingRect();
+    }
+
+    @Override
+    public boolean isShowing(Display display) {
+        return true;
+    }
+
+    @Override
+    public String getID() {
+        return id;
     }
 }

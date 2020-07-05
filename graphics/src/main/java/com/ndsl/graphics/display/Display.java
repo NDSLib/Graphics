@@ -2,24 +2,18 @@ package com.ndsl.graphics.display;
 
 import com.ndsl.graphics.Debugger;
 import com.ndsl.graphics.GraphicsMain;
-import com.ndsl.graphics.display.audio.AudioInput;
-import com.ndsl.graphics.display.audio.AudioOutput;
 import com.ndsl.graphics.display.drawable.Drawable;
 import com.ndsl.graphics.display.drawable.GUIBase;
 import com.ndsl.graphics.display.drawable.RealTimeDrawable;
-import com.ndsl.graphics.display.drawable.ui.MouseUIListener;
-import com.ndsl.graphics.display.drawable.ui.UIBase;
 import com.ndsl.graphics.display.fps.FPSAttitude;
 import com.ndsl.graphics.display.fps.FPSLimiter;
 import com.ndsl.graphics.display.key.KeyInputHandler;
 import com.ndsl.graphics.display.mouse.MouseInputHandler;
 import com.ndsl.graphics.display.scene.SceneManager;
-import com.ndsl.graphics.pos.Pos;
 import com.ndsl.graphics.pos.Rect;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.sound.sampled.LineUnavailableException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -62,7 +56,6 @@ public class Display extends JFrame {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.keyHandler=new KeyInputHandler(this);
         this.mouseInputHandler=new MouseInputHandler(this);
-//        this.setAlwaysOnTop(true);
         this.debugger=new Debugger(limiter,keyHandler,mouseInputHandler);
         Start_Time=System.currentTimeMillis();
     }
@@ -72,13 +65,13 @@ public class Display extends JFrame {
     }
 
     public List<Drawable> drawableList=new ArrayList<>();
-    public List<GUIBase> guiList=new ArrayList<>();
-    public List<UIBase> uiList=new ArrayList<>();
-    public List<RealTimeDrawable> realTimeDrawables=new ArrayList<>();
+
+    public boolean isShowing(Rect r){
+        return getDisplayShowingRect().contain(r);
+    }
 
     public boolean isShowing(Drawable drawable){
         return getDisplayShowingRect().contain(drawable.getShowingRect());
-//        return drawable.getShowingRect().contain(getDisplayShowingRect());
     }
 
     public boolean isShowing(RealTimeDrawable d) {
@@ -90,7 +83,7 @@ public class Display extends JFrame {
     }
 
     public Rect getDisplayShowingRect(){
-        return new Rect(new Pos(0,0),new Pos(this.getWidth(),this.getHeight()));
+        return new Rect(0,0,this.getWidth(),this.getHeight());
     }
 
     @Nullable
@@ -114,33 +107,6 @@ public class Display extends JFrame {
     public void update(Graphics g) {
         boolean need_draw=false;
         for(Drawable d:drawableList){
-            if(isShowing(d)){
-                if(!need_draw) clear();
-                d.onDraw(g);
-                if(isDebuggingMode) drawDebugRect(d.getShowingRect(),g);
-                resetGraphics(g);
-                need_draw=true;
-            }
-        }
-        for(GUIBase d:guiList){
-            if(isShowing(d)){
-                if(!need_draw) clear();
-                d.onDraw(g);
-                if(isDebuggingMode) drawDebugRect(d.getShowingRect(),g);
-                resetGraphics(g);
-                need_draw=true;
-            }
-        }
-        for(UIBase d:uiList){
-            if(isShowing(d)){
-                if(!need_draw) clear();
-                d.onDraw(g);
-                if(isDebuggingMode) drawDebugRect(d.getShowingRect(),g);
-                resetGraphics(g);
-                need_draw=true;
-            }
-        }
-        for(RealTimeDrawable d:realTimeDrawables){
             if(isShowing(d)){
                 if(!need_draw) clear();
                 d.onDraw(g);
@@ -181,33 +147,6 @@ public class Display extends JFrame {
         return this;
     }
 
-    public Display addGui(GUIBase e){
-        if(isExist(e.getID())){
-            this.guiList.remove(e);
-        }
-        this.guiList.add(e);
-        return this;
-    }
-
-    /**
-     * @apiNote if UI implements MouseUIListener
-     */
-    public Display addUI(UIBase e){
-        if(isExist(e.getID())){
-            this.uiList.remove(e);
-        }
-        this.uiList.add(e);
-        return this;
-    }
-
-    public Display addRealTimeDrawable(RealTimeDrawable e){
-        if(isExist(e.getID())){
-            this.realTimeDrawables.remove(e);
-        }
-        this.realTimeDrawables.add(e);
-        return this;
-    }
-
     @Nullable
     public Drawable getDrawableWithID(String id){
         for(Drawable drawable:drawableList){
@@ -219,40 +158,8 @@ public class Display extends JFrame {
         return null;
     }
 
-    @Nullable
-    public GUIBase getGuiWithID(String gui_id){
-        for(GUIBase drawable:guiList){
-            if(drawable.getID()==null) continue;
-            if(drawable.getID().equals(gui_id)){
-                return drawable;
-            }
-        }
-        return null;
-    }
-
-    @Nullable
-    private UIBase getUIWithID(String drawable_id) {
-        for(UIBase uiBase:uiList){
-            if(uiBase.getID()==null) continue;
-            if(uiBase.getID().equals(drawable_id)){
-                return uiBase;
-            }
-        }
-        return null;
-    }
-
-    private RealTimeDrawable getRealTimeDrawableWithID(String drawable_id) {
-        for(RealTimeDrawable d:realTimeDrawables){
-            if(d.getID()==null) continue;
-            if(d.getID().equals(drawable_id)){
-                return d;
-            }
-        }
-        return null;
-    }
-
     public boolean isExist(String drawable_id){
-        return getDrawableWithID(drawable_id)!=null || getGuiWithID(drawable_id)!=null || getUIWithID(drawable_id)!=null || getRealTimeDrawableWithID(drawable_id) != null;
+        return getDrawableWithID(drawable_id)!=null;
     }
 
 

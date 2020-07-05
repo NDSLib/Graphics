@@ -1,35 +1,47 @@
 package com.ndsl.graphics.display.drawable;
 
 import com.ndsl.graphics.GraphicsMain;
+import com.ndsl.graphics.display.Display;
 import com.ndsl.graphics.pos.Pos;
 import com.ndsl.graphics.pos.Rect;
 
 import java.awt.*;
 
-public class PointDrawable extends Drawable{
+public class PointDrawable implements IDrawable{
     public Color drawColor= GraphicsMain.Default_Color;
-
-    public PointDrawable(Pos pos, Color color){
-        super((Object)pos,pos);
-        this.drawColor=color;
-    }
-
+    public Pos pos;
+    public Rect rect;
+    public String id;
     public PointDrawable(Pos pos, Color color,String id){
-        super((Object)pos,pos,id);
+//        super((Object)pos,pos);
+        this.pos=pos;
         this.drawColor=color;
-    }
-
-    public PointDrawable(Pos pos){
-        super((Object)pos,pos);
+        this.rect=new Rect(pos,pos);
+        this.id=id;
     }
 
     public PointDrawable(Pos pos,String id){
-        super((Object)pos,pos,id);
+        this(pos,GraphicsMain.Default_Color,id);
     }
 
     @Override
-    public void onDraw(Graphics g) {
+    public void onDraw(Graphics g, Rect showingRect) {
         g.setColor(drawColor);
-        g.drawLine(this.left_up.x,this.left_up.y,this.left_up.x,this.left_up.y);
+        g.drawRect(showingRect.left_up.x,showingRect.left_up.y,showingRect.getWidth(),showingRect.getHeight());
+    }
+
+    @Override
+    public Rect getShowingRect() {
+        return rect;
+    }
+
+    @Override
+    public boolean isShowing(Display display) {
+        return display.isShowing(getShowingRect());
+    }
+
+    @Override
+    public String getID() {
+        return id;
     }
 }

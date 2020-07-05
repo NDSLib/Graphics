@@ -2,9 +2,11 @@ package com.ndsl.graphics.display.key;
 
 import com.ndsl.graphics.display.Display;
 import com.ndsl.graphics.display.DisplayAttitude;
+import com.ndsl.graphics.display.drawable.Drawable;
 import com.ndsl.graphics.display.drawable.GUIBase;
 import com.ndsl.graphics.display.drawable.StringDrawable;
 import com.ndsl.graphics.pos.Pos;
+import com.ndsl.graphics.pos.Rect;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -48,7 +50,7 @@ public class KeyInputHandler implements KeyListener {
     }
 
     public void setDebugGUI(){
-        display.addGui(new GUIBase(new StringDrawable(getActives()),new Pos(300,300),"keyinput_debug"));
+        display.addDrawable(new Drawable(new GUIBase(new StringDrawable(getActives(),new Rect(new Pos(300,300)),"keyinput_debug"))));
     }
 
     public String getActives(){

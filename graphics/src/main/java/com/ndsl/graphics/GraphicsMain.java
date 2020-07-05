@@ -6,12 +6,10 @@ import com.ndsl.graphics.display.drawable.RectDrawable;
 import com.ndsl.graphics.display.drawable.StringDrawable;
 import com.ndsl.graphics.display.drawable.img.ImageDrawable;
 import com.ndsl.graphics.display.drawable.ui.Button;
-import com.ndsl.graphics.display.drawable.ui.UIBase;
 import com.ndsl.graphics.pos.Pos;
 import com.ndsl.graphics.pos.Rect;
 
 import javax.imageio.ImageIO;
-import javax.sound.sampled.LineUnavailableException;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -46,14 +44,14 @@ public class GraphicsMain {
 //        display.addDrawable(new Drawable("test_drawable"));
 //        System.out.println(display.drawableList);
         display.setDebugMode(true);
-        display.addDrawable(new Drawable(new StringDrawable("え",new Font(StringDrawable.Default_Font_String,Font.BOLD,12)),new Pos(200,200),"Test_Font"));
-        display.addDrawable(new Drawable(new ImageDrawable(BunFace),new Rect(200,200,300,300),"bun_face"));
+        display.addDrawable(new Drawable(new StringDrawable("え",new Rect(new Pos(200,200)),StringDrawable.Default_Font,"Test_Font")));
+        display.addDrawable(new Drawable(new ImageDrawable(BunFace,new Pos(200,200),"bun_face")));
         //noinspection InfiniteLoopStatement
         while (true){
             display.debugger.setDebug(display);
             display.mouseInputHandler.setDebugDrawable();
             Button.genAndAddButton(new Rect(new Pos(150,100),new Pos(200,150)),display,"button_id");
-            display.addDrawable(new Drawable(new RectDrawable(Color.CYAN),new Rect(new Pos(150,100),new Pos(200,150)),"button_rect"));
+            display.addDrawable(new Drawable(new RectDrawable(new Rect(new Pos(150,100),new Pos(200,150)),Color.CYAN,"button_rect")));
             if (display.limiter.onUpdate()) display.update();
         }
     }

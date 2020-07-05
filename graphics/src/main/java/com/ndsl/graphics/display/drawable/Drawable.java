@@ -7,56 +7,29 @@ import org.jetbrains.annotations.Nullable;
 import java.awt.*;
 
 public class Drawable {
-    public Object drawObject;
-    public Pos left_up=null;
-    @Deprecated
-    protected Drawable(Object o, Pos left_up){
-        drawObject=o;
-        this.left_up=left_up;
-    }
-
-    public Rect drawRect=null;
-
-    @Deprecated
-    public Drawable(Object o, Rect rect){
-        drawObject=o;
-        this.drawRect=rect;
-        this.left_up=rect.left_up;
-    }
-
+    public IDrawable drawObject;
     public String Drawable_id=null;
 
-    public Drawable(Object o,Pos pos,String id){
-        this(o,pos);
-        Drawable_id=id;
+    public Drawable(IDrawable d){
+        drawObject=d;
+        Drawable_id=d.getID();
     }
 
-    public Drawable(Object o,Rect rect,String id){
-        this(o,rect);
+    public Drawable(IDrawable d,String id){
+        this(d);
         Drawable_id=id;
     }
-
-
 
     public void onDraw(Graphics g){
         if(g==null) {
             System.out.println("Graphics is null");
             return;
         }
-        if(drawObject instanceof Image){
-            g.drawImage((Image)drawObject,left_up.x,left_up.y,null);
-        }else if(drawObject instanceof String){
-            g.drawString((String)drawObject,left_up.x, left_up.y);
-        }else if(drawObject instanceof ICustomDrawable){
-            ((ICustomDrawable) drawObject).onDraw(g,getShowingRect());
-        }else if(drawObject instanceof IRealTimeCustomDrawable){
-            ((IRealTimeCustomDrawable) drawObject).onDraw(g,getShowingRect());
-        }
+        drawObject.onDraw(g,drawObject.getShowingRect());
     }
 
     public Rect getShowingRect(){
-        if(drawRect!=null) return drawRect;
-        return new Rect(left_up,left_up);
+        return drawObject.getShowingRect();
     }
 
     @Override
@@ -65,7 +38,7 @@ public class Drawable {
             if(((Drawable) obj).getID()!=null) {
                 if (((Drawable) obj).getID().equals(getID())) return true;
             }
-            if (((Drawable)obj).left_up.equals(left_up)){
+            if (((Drawable)obj).getShowingRect().left_up.equals(getShowingRect().left_up)){
                 return ((Drawable)obj).drawObject.equals(drawObject);
             }else{
                 return false;
