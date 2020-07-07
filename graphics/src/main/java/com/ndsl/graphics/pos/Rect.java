@@ -67,4 +67,22 @@ public class Rect {
     public String toString() {
         return "{"+this.left_up.toString() + " " + this.right_down.toString()+"}";
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(super.equals(obj)) return true;
+        if(obj instanceof Rect){
+            Rect r=((Rect)obj);
+            if(left_up.equals(r.left_up) && right_down.equals(r.right_down)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Rect shift(int x,int y){
+        this.left_up.shift(x,y);
+        this.right_down.shift(x,y);
+        return this;
+    }
 }

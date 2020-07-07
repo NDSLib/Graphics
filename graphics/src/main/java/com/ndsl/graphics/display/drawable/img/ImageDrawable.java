@@ -1,7 +1,6 @@
 package com.ndsl.graphics.display.drawable.img;
 
 import com.ndsl.graphics.display.Display;
-import com.ndsl.graphics.display.drawable.ICustomDrawable;
 import com.ndsl.graphics.display.drawable.IDrawable;
 import com.ndsl.graphics.pos.Pos;
 import com.ndsl.graphics.pos.Rect;

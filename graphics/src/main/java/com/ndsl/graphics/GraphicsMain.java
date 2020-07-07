@@ -4,6 +4,8 @@ import com.ndsl.graphics.display.Display;
 import com.ndsl.graphics.display.drawable.Drawable;
 import com.ndsl.graphics.display.drawable.RectDrawable;
 import com.ndsl.graphics.display.drawable.StringDrawable;
+import com.ndsl.graphics.display.drawable.animate.TimeScaledAnimator;
+import com.ndsl.graphics.display.drawable.img.GImage;
 import com.ndsl.graphics.display.drawable.img.ImageDrawable;
 import com.ndsl.graphics.display.drawable.ui.Button;
 import com.ndsl.graphics.display.layer.Layer;
@@ -22,8 +24,8 @@ public class GraphicsMain {
 
     public Display display;
 
-    public static void main(String[] args){
-        new GraphicsMain().layer_test();
+    public static void main(String[] args) throws IOException {
+        new GraphicsMain().animatorTest();
     }
 
     public void onRun(){
@@ -62,6 +64,15 @@ public class GraphicsMain {
         display.layerManager.set(new Layer("Second_Layer"),2);
         display.layerManager.get("default").add(new Drawable(new RectDrawable(new Rect(100,100,300,300),Color.BLUE,"first_rect")));
         display.layerManager.get("Second_Layer").add(new Drawable(new RectDrawable(new Rect(200,200,400,400),Color.RED,"second_rect")));
+        while (true){
+            if (display.limiter.onUpdate()) display.update();
+        }
+    }
+
+    public void animatorTest() throws IOException {
+        display = new Display("NDSL/Graphics",3,new Rect(new Pos(100,100),new Pos(600,600)));
+        display.layerManager.set(new Layer("Animator"),1);
+        display.layerManager.get("Animator").add(new Drawable(new TimeScaledAnimator("anime",1000,new Pos(100,100), GImage.getAll("graphics\\src\\main\\java\\com\\ndsl\\graphics\\display\\drawable\\img\\bun_face.jpg","graphics\\src\\main\\java\\com\\ndsl\\graphics\\display\\drawable\\img\\bun_face_privacy.jpg"))));
         while (true){
             if (display.limiter.onUpdate()) display.update();
         }
