@@ -2,10 +2,7 @@ package com.ndsl.graphics.display.layer;
 
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class LayerManager {
     public static LayerManager INSTANCE=new LayerManager();
@@ -18,6 +15,7 @@ public class LayerManager {
 
     public LayerManager set(Layer layer,Integer id) {
         layers.put(id,layer);
+        sort();
         return this;
     }
 
@@ -39,5 +37,19 @@ public class LayerManager {
 
     public Integer getLatest(){
         return layers.keySet().toArray(new Integer[0])[layers.size()-1]+1;
+    }
+    
+    public void sort(){
+        List<Map.Entry<Integer,Layer>> list=new ArrayList<>(layers.entrySet());
+        Collections.sort(list, new Comparator<Map.Entry<Integer, Layer>>() {
+            public int compare(Map.Entry<Integer, Layer> obj1, Map.Entry<Integer, Layer> obj2) {
+                return obj1.getKey() - obj2.getKey();
+            }
+        });
+        Map<Integer, Layer> layer=new HashMap<>();
+        for(Map.Entry<Integer, Layer> entry:list){
+            layer.put(entry.getKey(),entry.getValue());
+        }
+        this.layers=layer;
     }
 }

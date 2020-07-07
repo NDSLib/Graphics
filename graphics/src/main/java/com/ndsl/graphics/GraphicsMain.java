@@ -6,6 +6,7 @@ import com.ndsl.graphics.display.drawable.RectDrawable;
 import com.ndsl.graphics.display.drawable.StringDrawable;
 import com.ndsl.graphics.display.drawable.img.ImageDrawable;
 import com.ndsl.graphics.display.drawable.ui.Button;
+import com.ndsl.graphics.display.layer.Layer;
 import com.ndsl.graphics.pos.Pos;
 import com.ndsl.graphics.pos.Rect;
 
@@ -22,7 +23,7 @@ public class GraphicsMain {
     public Display display;
 
     public static void main(String[] args){
-        new GraphicsMain().onRun();
+        new GraphicsMain().layer_test();
     }
 
     public void onRun(){
@@ -52,6 +53,16 @@ public class GraphicsMain {
             display.mouseInputHandler.setDebugDrawable();
             Button.genAndAddButton(new Rect(new Pos(150,100),new Pos(200,150)),display,"button_id");
             display.addDrawable(new Drawable(new RectDrawable(new Rect(new Pos(150,100),new Pos(200,150)),Color.CYAN,"button_rect")));
+            if (display.limiter.onUpdate()) display.update();
+        }
+    }
+
+    public void layer_test(){
+        display = new Display("NDSL/Graphics",3,new Rect(new Pos(100,100),new Pos(600,600)));
+        display.layerManager.set(new Layer("Second_Layer"),2);
+        display.layerManager.get("default").add(new Drawable(new RectDrawable(new Rect(100,100,300,300),Color.BLUE,"first_rect")));
+        display.layerManager.get("Second_Layer").add(new Drawable(new RectDrawable(new Rect(200,200,400,400),Color.RED,"second_rect")));
+        while (true){
             if (display.limiter.onUpdate()) display.update();
         }
     }
