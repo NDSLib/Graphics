@@ -6,6 +6,7 @@ import com.ndsl.graphics.display.drawable.GUIBase;
 import com.ndsl.graphics.display.drawable.StringGui;
 import com.ndsl.graphics.display.fps.FPSLimiter;
 import com.ndsl.graphics.display.key.KeyInputHandler;
+import com.ndsl.graphics.display.layer.Layer;
 import com.ndsl.graphics.display.mouse.MouseInputHandler;
 import com.ndsl.graphics.pos.Pos;
 import com.ndsl.graphics.pos.Rect;
@@ -32,10 +33,18 @@ public class Debugger {
     }
 
     private Drawable genLimiterGui(Display display) {
-        return new Drawable(new StringGui("FPS:"+limiter.getFPS()+"\n"+"MaxFPS:"+limiter.MaxFPS+"\n"+"LimitedFPS:"+limiter.limitedFPS+"\n"+"FramesCount:"+limiter.FPSCount+"\n"+"GoodFrames:"+limiter.GoodFrameCount+"\n"+"FrameHealth:"+limiter.getFrameHealth()+"\n"+"DrawableCounts:"+display.drawableList.size(),new Rect(new Pos(10,30)),"debugger_view"));
+        return new Drawable(new StringGui("FPS:"+limiter.getFPS()+"\n"+"MaxFPS:"+limiter.MaxFPS+"\n"+"LimitedFPS:"+limiter.limitedFPS+"\n"+"FramesCount:"+limiter.FPSCount+"\n"+"GoodFrames:"+limiter.GoodFrameCount+"\n"+"FrameHealth:"+limiter.getFrameHealth()+"\n"+"DrawableCounts:"+getDrawableCount(display),new Rect(new Pos(10,30)),"debugger_view"));
     }
 
     private Drawable genKeyInputGui(Display display){
         return new Drawable(new StringGui(keyInputHandler.getActives(),new Rect(new Pos(10,200)),"debugger_view_key"));
+    }
+
+    private long getDrawableCount(Display display){
+        long l=0;
+        for(Layer layer:display.layerManager.layers.values()){
+            l+=layer.drawableList.size();
+        }
+        return l;
     }
 }

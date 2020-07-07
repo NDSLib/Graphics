@@ -31,7 +31,7 @@ public class SceneManager {
     public SceneManager remove(String id){
         for(Scene scene: scenes){
             if(scene.id.equals(id)){
-                scene.remove(scene);
+                scenes.remove(scene);
                 break;
             }
         }

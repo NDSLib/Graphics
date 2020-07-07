@@ -2,8 +2,7 @@ package com.ndsl.graphics.display.scene;
 
 import com.ndsl.graphics.display.Display;
 import com.ndsl.graphics.display.drawable.Drawable;
-import com.ndsl.graphics.display.drawable.GUIBase;
-import com.ndsl.graphics.display.drawable.RealTimeDrawable;
+import com.ndsl.graphics.display.layer.Layer;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -24,27 +23,25 @@ public class Scene {
     }
 
 
-    public List<Drawable> drawableList=new ArrayList<>();
+    public List<Layer> layerList=new ArrayList<>();
 
-    public Scene add(Object o){
-        if(o instanceof Drawable){
-            drawableList.add((Drawable)o);
-        }
+    public Scene add(Layer layer){
+        layerList.add(layer);
         return this;
     }
 
-    public Scene remove(Object o) {
-        if(o instanceof Drawable){
-            drawableList.remove((Drawable)o);
-        }
+    public Scene remove(Layer layer) {
+        layerList.remove(layer);
         return this;
     }
 
     public boolean isExistDrawable(String id){
-        for(Drawable drawable:drawableList){
-            if(drawable.getID()==null) continue;
-            if(drawable.getID().equals(id)){
-                return true;
+        for(Layer layer:layerList) {
+            for (Drawable drawable : layer.drawableList.toArray(new Drawable[0])) {
+                if (drawable.getID() == null) continue;
+                if (drawable.getID().equals(id)) {
+                    return true;
+                }
             }
         }
         return false;
@@ -52,10 +49,12 @@ public class Scene {
 
     @Nullable
     public Drawable getDrawableWithID(String id){
-        for(Drawable drawable:drawableList){
-            if(drawable.getID()==null) continue;
-            if(drawable.getID().equals(id)){
-                return drawable;
+        for(Layer layer:layerList) {
+            for (Drawable drawable : layer.drawableList.toArray(new Drawable[0])) {
+                if (drawable.getID() == null) continue;
+                if (drawable.getID().equals(id)) {
+                    return drawable;
+                }
             }
         }
         System.out.println("Not Found in Scene:"+id);
@@ -66,12 +65,14 @@ public class Scene {
      * for Display
      */
     private void clearDisplay(Display display) {
-        display.drawableList.clear();
+        for(Layer layer : display.layerManager.layers.values()){
+            layer.drawableList.clear();
+        }
     }
 
     private void addAllToDisplay(Display display){
-        for(Drawable draw:drawableList){
-            display.addDrawable(draw);
+        for(Layer layer:layerList) {
+            display.addLayer(layer);
         }
     }
 

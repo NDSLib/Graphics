@@ -4,6 +4,7 @@ import com.ndsl.graphics.display.Display;
 import com.ndsl.graphics.display.drawable.Drawable;
 import com.ndsl.graphics.display.drawable.GUIBase;
 import com.ndsl.graphics.display.drawable.StringGui;
+import com.ndsl.graphics.display.layer.Layer;
 import com.ndsl.graphics.pos.Pos;
 import com.ndsl.graphics.pos.Rect;
 
@@ -77,8 +78,15 @@ public class FPSLimiter {
     }
 
     private Drawable genDrawable(Display display) {
-        return new Drawable(new GUIBase(new StringGui("FPS:"+getFPS()+"\n"+"MaxFPS:"+MaxFPS+"\n"+"LimitedFPS:"+limitedFPS+"\n"+"FramesCount:"+FPSCount+"\n"+"GoodFrames:"+GoodFrameCount+"\n"+"FrameHealth:"+getFrameHealth()+"\n"+"DrawableCounts:"+display.drawableList.size(),new Rect(new Pos(10,40)),"FPS_Mater")));
-//        return new StringGui("FPS:"+getFPS()+"\n"+"MaxFPS:"+MaxFPS+"\n"+"LimitedFPS:"+limitedFPS+"\n"+"FramesCount:"+FPSCount+"\n"+"GoodFrames:"+GoodFrameCount+"\n"+"FrameHealth:"+getFrameHealth(),new Pos(10,40),"FPS_Mater");
+        return new Drawable(new GUIBase(new StringGui("FPS:"+getFPS()+"\n"+"MaxFPS:"+MaxFPS+"\n"+"LimitedFPS:"+limitedFPS+"\n"+"FramesCount:"+FPSCount+"\n"+"GoodFrames:"+GoodFrameCount+"\n"+"FrameHealth:"+getFrameHealth()+"\n"+"DrawableCounts:"+getDrawableCount(display),new Rect(new Pos(10,40)),"FPS_Mater")));
+    }
+
+    private long getDrawableCount(Display display){
+        long l=0;
+        for(Layer layer:display.layerManager.layers.values()){
+            l+=layer.drawableList.size();
+        }
+        return l;
     }
 
     public long getFPS(){

@@ -8,6 +8,8 @@ import com.ndsl.graphics.display.drawable.RealTimeDrawable;
 import com.ndsl.graphics.display.fps.FPSAttitude;
 import com.ndsl.graphics.display.fps.FPSLimiter;
 import com.ndsl.graphics.display.key.KeyInputHandler;
+import com.ndsl.graphics.display.layer.Layer;
+import com.ndsl.graphics.display.layer.LayerManager;
 import com.ndsl.graphics.display.mouse.MouseInputHandler;
 import com.ndsl.graphics.display.scene.SceneManager;
 import com.ndsl.graphics.pos.Rect;
@@ -64,7 +66,7 @@ public class Display extends JFrame {
         return System.currentTimeMillis()-Start_Time;
     }
 
-    public List<Drawable> drawableList=new ArrayList<>();
+//    public List<Drawable> drawableList=new ArrayList<>();
 
     public boolean isShowing(Rect r){
         return getDisplayShowingRect().contain(r);
@@ -91,6 +93,8 @@ public class Display extends JFrame {
         return bufferStrategy.getDrawGraphics();
     }
 
+    public LayerManager layerManager=LayerManager.INSTANCE;
+
     public void update(){
         if(bufferStrategy.contentsLost()) bufferStrategy=this.getBufferStrategy();
         switch (attitude){
@@ -106,13 +110,15 @@ public class Display extends JFrame {
     @Override
     public void update(Graphics g) {
         boolean need_draw=false;
-        for(Drawable d:drawableList){
-            if(isShowing(d)){
-                if(!need_draw) clear();
-                d.onDraw(g);
-                if(isDebuggingMode) drawDebugRect(d.getShowingRect(),g);
-                resetGraphics(g);
-                need_draw=true;
+        for(Layer layer:layerManager.getAll()){
+            for(Drawable d:layer.drawableList){
+                if(isShowing(d)){
+                    if(!need_draw) clear();
+                    d.onDraw(g);
+                    if(isDebuggingMode) drawDebugRect(d.getShowingRect(),g);
+                    resetGraphics(g);
+                    need_draw=true;
+                }
             }
         }
         if(need_draw) repaint();
@@ -137,22 +143,29 @@ public class Display extends JFrame {
         Toolkit.getDefaultToolkit().sync();
         if(!bufferStrategy.contentsLost()) bufferStrategy.show();
     }
-
-    public Display addDrawable(Drawable e){
-        if(isExist(e.getID())){
-//            System.out.println("DrawableRemoved!");
-            this.drawableList.remove(e);
+    public Display addDrawable(Drawable e){return addDrawable(e,"default");}
+    public Display addDrawable(Drawable e,String layer_id){
+        Layer layer=layerManager.get(layer_id);
+        if(layer.isExist(e)){
+            layer.drawableList.remove(e);
         }
-        this.drawableList.add(e);
+        layer.drawableList.add(e);
+        return this;
+    }
+
+    public Display addLayer(Layer layer){
+        this.layerManager.set(layer,layerManager.getLatest());
         return this;
     }
 
     @Nullable
     public Drawable getDrawableWithID(String id){
-        for(Drawable drawable:drawableList){
-            if(drawable.getID()==null) continue;
-            if(drawable.getID().equals(id)){
-                return drawable;
+        for(Layer layer:layerManager.getAll()) {
+            for (Drawable drawable : layer.drawableList.toArray(new Drawable[0])) {
+                if (drawable.getID() == null) continue;
+                if (drawable.getID().equals(id)) {
+                    return drawable;
+                }
             }
         }
         return null;
