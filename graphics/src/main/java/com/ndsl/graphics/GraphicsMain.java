@@ -8,12 +8,14 @@ import com.ndsl.graphics.display.drawable.animate.TimeScaledAnimator;
 import com.ndsl.graphics.display.drawable.img.GImage;
 import com.ndsl.graphics.display.drawable.img.ImageDrawable;
 import com.ndsl.graphics.display.drawable.non_sync.ui.Button;
+import com.ndsl.graphics.display.drawable.synced.SyncedStringDrawable;
 import com.ndsl.graphics.display.layer.Layer;
 import com.ndsl.graphics.pos.Pos;
 import com.ndsl.graphics.pos.Rect;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 
@@ -25,7 +27,7 @@ public class GraphicsMain {
     public Display display;
 
     public static void main(String[] args) throws IOException {
-        new GraphicsMain().animatorTest();
+        new GraphicsMain().syncTest();
     }
 
     public void onRun(){
@@ -74,6 +76,20 @@ public class GraphicsMain {
         display.layerManager.set(new Layer("Animator"),1);
         display.layerManager.get("Animator").add(new Drawable(new TimeScaledAnimator("anime",1000,new Pos(100,100), GImage.getAll("graphics\\src\\main\\java\\com\\ndsl\\graphics\\display\\drawable\\img\\bun_face.jpg","graphics\\src\\main\\java\\com\\ndsl\\graphics\\display\\drawable\\img\\bun_face_privacy.jpg"))));
         while (true){
+            if (display.limiter.onUpdate()) display.update();
+        }
+    }
+
+    public void syncTest(){
+        display = new Display("NDSL/Graphics",3,new Rect(new Pos(100,100),new Pos(600,600)));
+        int count=0;
+        SyncedStringDrawable s_d=new SyncedStringDrawable("Counts:"+count,new Rect(100,100,200,200),"id");
+        display.layerManager.get("default").add(new Drawable(s_d));
+        while (true){
+            if(display.keyHandler.isKeyPressing(KeyEvent.VK_ENTER)){
+                ++count;
+                s_d.setText("Counts:"+count);
+            }
             if (display.limiter.onUpdate()) display.update();
         }
     }
