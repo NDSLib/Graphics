@@ -1,4 +1,4 @@
-package com.ndsl.graphics.display.drawable;
+package com.ndsl.graphics.display.drawable.base;
 
 import com.ndsl.graphics.pos.Pos;
 import com.ndsl.graphics.pos.Rect;

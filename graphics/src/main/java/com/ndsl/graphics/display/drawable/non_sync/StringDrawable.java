@@ -1,12 +1,14 @@
-package com.ndsl.graphics.display.drawable;
+package com.ndsl.graphics.display.drawable.non_sync;
 
 import com.ndsl.graphics.display.Display;
+import com.ndsl.graphics.display.drawable.IDrawable;
+import com.ndsl.graphics.display.drawable.base.DrawableUtil;
 import com.ndsl.graphics.pos.Rect;
 
 import java.awt.*;
 import java.util.Objects;
 
-public class StringDrawable implements IDrawable{
+public class StringDrawable implements IDrawable {
     public static final String Default_Font_String="Meiryo UI";
     public static final int Default_Font_Size=12;
     public static final Font Default_Font=new Font(Default_Font_String, Font.PLAIN, Default_Font_Size);

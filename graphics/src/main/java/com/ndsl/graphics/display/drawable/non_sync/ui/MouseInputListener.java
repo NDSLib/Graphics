@@ -1,4 +1,4 @@
-package com.ndsl.graphics.display.drawable.ui;
+package com.ndsl.graphics.display.drawable.non_sync.ui;
 
 import com.ndsl.graphics.display.Display;
 import com.ndsl.graphics.display.mouse.MouseInputHandler;

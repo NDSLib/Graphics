@@ -1,6 +1,6 @@
-package com.ndsl.graphics.display.drawable;
+package com.ndsl.graphics.display.drawable.base;
 
-import com.ndsl.graphics.pos.Pos;
+import com.ndsl.graphics.display.drawable.IDrawable;
 import com.ndsl.graphics.pos.Rect;
 import org.jetbrains.annotations.Nullable;
 

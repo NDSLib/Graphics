@@ -1,14 +1,14 @@
-package com.ndsl.graphics.display.drawable;
+package com.ndsl.graphics.display.drawable.non_sync.ui;
 
 import com.ndsl.graphics.display.Display;
-import com.ndsl.graphics.pos.Pos;
+import com.ndsl.graphics.display.drawable.IDrawable;
+import com.ndsl.graphics.display.drawable.base.DrawableUtil;
 import com.ndsl.graphics.pos.Rect;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
-import java.util.Objects;
 
-public class StringGui implements IDrawable{
+public class StringGui implements IDrawable {
     public static final String Default_Font_String="Arial";
     public static final int Default_Font_Size=12;
     public static final Font Default_Font=new Font(Default_Font_String, Font.PLAIN, Default_Font_Size);

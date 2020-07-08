@@ -1,12 +1,12 @@
-package com.ndsl.graphics.display.drawable;
+package com.ndsl.graphics.display.drawable.base;
 
 import com.ndsl.graphics.display.Display;
-import com.ndsl.graphics.pos.Pos;
+import com.ndsl.graphics.display.drawable.IDrawable;
 import com.ndsl.graphics.pos.Rect;
 
 import java.awt.*;
 
-public class GUIBase implements IDrawable{
+public class GUIBase implements IDrawable {
     public IDrawable drawObject;
     public String id;
     public GUIBase(IDrawable drawObject) {

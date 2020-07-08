@@ -1,13 +1,13 @@
 package com.ndsl.graphics;
 
 import com.ndsl.graphics.display.Display;
-import com.ndsl.graphics.display.drawable.Drawable;
-import com.ndsl.graphics.display.drawable.RectDrawable;
-import com.ndsl.graphics.display.drawable.StringDrawable;
+import com.ndsl.graphics.display.drawable.base.Drawable;
+import com.ndsl.graphics.display.drawable.non_sync.RectDrawable;
+import com.ndsl.graphics.display.drawable.non_sync.StringDrawable;
 import com.ndsl.graphics.display.drawable.animate.TimeScaledAnimator;
 import com.ndsl.graphics.display.drawable.img.GImage;
 import com.ndsl.graphics.display.drawable.img.ImageDrawable;
-import com.ndsl.graphics.display.drawable.ui.Button;
+import com.ndsl.graphics.display.drawable.non_sync.ui.Button;
 import com.ndsl.graphics.display.layer.Layer;
 import com.ndsl.graphics.pos.Pos;
 import com.ndsl.graphics.pos.Rect;

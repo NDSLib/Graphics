@@ -1,7 +1,7 @@
 package com.ndsl.graphics.display.scene;
 
 import com.ndsl.graphics.display.Display;
-import com.ndsl.graphics.display.drawable.Drawable;
+import com.ndsl.graphics.display.drawable.base.Drawable;
 import com.ndsl.graphics.display.layer.Layer;
 import org.jetbrains.annotations.Nullable;
 

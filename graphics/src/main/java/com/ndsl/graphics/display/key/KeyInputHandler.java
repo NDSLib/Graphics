@@ -2,9 +2,9 @@ package com.ndsl.graphics.display.key;
 
 import com.ndsl.graphics.display.Display;
 import com.ndsl.graphics.display.DisplayAttitude;
-import com.ndsl.graphics.display.drawable.Drawable;
-import com.ndsl.graphics.display.drawable.GUIBase;
-import com.ndsl.graphics.display.drawable.StringDrawable;
+import com.ndsl.graphics.display.drawable.base.Drawable;
+import com.ndsl.graphics.display.drawable.base.GUIBase;
+import com.ndsl.graphics.display.drawable.non_sync.StringDrawable;
 import com.ndsl.graphics.pos.Pos;
 import com.ndsl.graphics.pos.Rect;
 

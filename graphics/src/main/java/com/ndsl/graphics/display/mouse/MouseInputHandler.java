@@ -1,12 +1,11 @@
 package com.ndsl.graphics.display.mouse;
 
 import com.ndsl.graphics.display.Display;
-import com.ndsl.graphics.display.drawable.Drawable;
-import com.ndsl.graphics.display.drawable.LineDrawable;
-import com.ndsl.graphics.display.drawable.ui.MouseUIListener;
+import com.ndsl.graphics.display.drawable.base.Drawable;
+import com.ndsl.graphics.display.drawable.non_sync.LineDrawable;
+import com.ndsl.graphics.display.drawable.non_sync.ui.MouseUIListener;
 import com.ndsl.graphics.pos.Line;
 import com.ndsl.graphics.pos.Pos;
-import com.ndsl.graphics.pos.Rect;
 import org.jetbrains.annotations.Nullable;
 
 import java.awt.*;

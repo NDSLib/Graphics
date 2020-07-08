@@ -2,9 +2,9 @@ package com.ndsl.graphics.display;
 
 import com.ndsl.graphics.Debugger;
 import com.ndsl.graphics.GraphicsMain;
-import com.ndsl.graphics.display.drawable.Drawable;
-import com.ndsl.graphics.display.drawable.GUIBase;
-import com.ndsl.graphics.display.drawable.RealTimeDrawable;
+import com.ndsl.graphics.display.drawable.base.Drawable;
+import com.ndsl.graphics.display.drawable.base.GUIBase;
+import com.ndsl.graphics.display.drawable.non_sync.RealTimeDrawable;
 import com.ndsl.graphics.display.fps.FPSAttitude;
 import com.ndsl.graphics.display.fps.FPSLimiter;
 import com.ndsl.graphics.display.key.KeyInputHandler;
@@ -19,8 +19,6 @@ import org.jetbrains.annotations.Nullable;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Display extends JFrame {
 

@@ -1,12 +1,13 @@
-package com.ndsl.graphics.display.drawable;
+package com.ndsl.graphics.display.drawable.non_sync;
 
 import com.ndsl.graphics.GraphicsMain;
 import com.ndsl.graphics.display.Display;
+import com.ndsl.graphics.display.drawable.IDrawable;
 import com.ndsl.graphics.pos.Rect;
 
 import java.awt.*;
 
-public class RectDrawable implements IDrawable{
+public class RectDrawable implements IDrawable {
     public Color c= GraphicsMain.Default_Color;
     public Rect r;
     public String id;

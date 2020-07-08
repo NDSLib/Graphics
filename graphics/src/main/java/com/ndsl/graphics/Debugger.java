@@ -1,9 +1,9 @@
 package com.ndsl.graphics;
 
 import com.ndsl.graphics.display.Display;
-import com.ndsl.graphics.display.drawable.Drawable;
-import com.ndsl.graphics.display.drawable.GUIBase;
-import com.ndsl.graphics.display.drawable.StringGui;
+import com.ndsl.graphics.display.drawable.base.Drawable;
+import com.ndsl.graphics.display.drawable.base.GUIBase;
+import com.ndsl.graphics.display.drawable.non_sync.ui.StringGui;
 import com.ndsl.graphics.display.fps.FPSLimiter;
 import com.ndsl.graphics.display.key.KeyInputHandler;
 import com.ndsl.graphics.display.layer.Layer;
