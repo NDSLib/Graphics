@@ -6,12 +6,15 @@ import com.ndsl.graphics.display.layer.Layer;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Scene {
     public String id;
     public Scene(String id) {
         this.id=id;
+        add(new Layer("default"),0);
     }
 
     @Override
@@ -23,21 +26,32 @@ public class Scene {
     }
 
 
-    public List<Layer> layerList=new ArrayList<>();
+    public Map<Integer,Layer> layer_map=new HashMap<>();
 
-    public Scene add(Layer layer){
-        layerList.add(layer);
+    public Scene add(Layer layer,int id){
+        layer_map.put(id,layer);
         return this;
     }
 
-    public Scene remove(Layer layer) {
-        layerList.remove(layer);
+    public Scene remove(int id) {
+        layer_map.remove(id);
+        return this;
+    }
+
+    public Scene remove(String id){
+        for(Map.Entry<Integer, Layer> entry:layer_map.entrySet()) {
+            if(entry.getValue().id.equals(id)){
+                remove(entry.getKey());
+            }
+        }
+
+        System.out.println("[ERROR]Not Found in Layer:"+id);
         return this;
     }
 
     public boolean isExistDrawable(String id){
-        for(Layer layer:layerList) {
-            for (Drawable drawable : layer.drawableList.toArray(new Drawable[0])) {
+        for(Map.Entry<Integer, Layer> entry:layer_map.entrySet()) {
+            for (Drawable drawable : entry.getValue().drawableList.toArray(new Drawable[0])) {
                 if (drawable.getID() == null) continue;
                 if (drawable.getID().equals(id)) {
                     return true;
@@ -49,8 +63,8 @@ public class Scene {
 
     @Nullable
     public Drawable getDrawableWithID(String id){
-        for(Layer layer:layerList) {
-            for (Drawable drawable : layer.drawableList.toArray(new Drawable[0])) {
+        for(Map.Entry<Integer, Layer> entry:layer_map.entrySet()) {
+            for (Drawable drawable : entry.getValue().drawableList.toArray(new Drawable[0])) {
                 if (drawable.getID() == null) continue;
                 if (drawable.getID().equals(id)) {
                     return drawable;
@@ -66,13 +80,14 @@ public class Scene {
      */
     private void clearDisplay(Display display) {
         for(Layer layer : display.layerManager.layers.values()){
-            layer.drawableList.clear();
+            display.layerManager.remove(layer.id);
+//            layer.drawableList.clear();
         }
     }
 
     private void addAllToDisplay(Display display){
-        for(Layer layer:layerList) {
-            display.addLayer(layer);
+        for(Map.Entry<Integer, Layer> entry:layer_map.entrySet()) {
+            display.layerManager.set(entry.getValue(),entry.getKey());
         }
     }
 

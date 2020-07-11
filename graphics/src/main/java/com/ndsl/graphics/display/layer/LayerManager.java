@@ -52,4 +52,19 @@ public class LayerManager {
         }
         this.layers=layer;
     }
+
+    public void remove(int id){
+        layers.remove(id);
+    }
+
+    public void remove(String id){
+        for(Map.Entry<Integer, Layer> entry:layers.entrySet()){
+            if(entry.getValue().id.equals(id)){
+                remove(entry.getKey());
+                return;
+            }
+        }
+
+        System.out.println("[ERROR]Not Found Layer:"+id);
+    }
 }

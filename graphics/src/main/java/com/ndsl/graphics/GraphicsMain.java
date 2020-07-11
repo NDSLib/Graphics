@@ -10,12 +10,14 @@ import com.ndsl.graphics.display.drawable.img.ImageDrawable;
 import com.ndsl.graphics.display.drawable.non_sync.ui.Button;
 import com.ndsl.graphics.display.drawable.synced.SyncedStringDrawable;
 import com.ndsl.graphics.display.layer.Layer;
+import com.ndsl.graphics.display.util.ExitAttitude;
 import com.ndsl.graphics.pos.Pos;
 import com.ndsl.graphics.pos.Rect;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 
@@ -27,7 +29,7 @@ public class GraphicsMain {
     public Display display;
 
     public static void main(String[] args) throws IOException {
-        new GraphicsMain().syncTest();
+        new GraphicsMain().exitTest();
     }
 
     public void onRun(){
@@ -91,6 +93,22 @@ public class GraphicsMain {
                 s_d.setText("Counts:"+count);
             }
             if (display.limiter.onUpdate()) display.update();
+        }
+    }
+
+    public void exitTest(){
+        display = new Display("NDSL/Graphics",3,new Rect(new Pos(100,100),new Pos(600,600)));
+        display.exitManager.add(new EA());
+        while(true){
+            if (display.limiter.onUpdate()) display.update();
+        }
+    }
+
+    public class EA implements ExitAttitude {
+
+        @Override
+        public void onClose(WindowEvent e) {
+            System.out.println("Exit!!!!");
         }
     }
 }

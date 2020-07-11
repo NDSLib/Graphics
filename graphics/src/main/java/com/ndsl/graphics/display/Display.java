@@ -4,7 +4,6 @@ import com.ndsl.graphics.Debugger;
 import com.ndsl.graphics.GraphicsMain;
 import com.ndsl.graphics.display.drawable.base.Drawable;
 import com.ndsl.graphics.display.drawable.base.GUIBase;
-import com.ndsl.graphics.display.drawable.non_sync.RealTimeDrawable;
 import com.ndsl.graphics.display.fps.FPSAttitude;
 import com.ndsl.graphics.display.fps.FPSLimiter;
 import com.ndsl.graphics.display.key.KeyInputHandler;
@@ -12,6 +11,7 @@ import com.ndsl.graphics.display.layer.Layer;
 import com.ndsl.graphics.display.layer.LayerManager;
 import com.ndsl.graphics.display.mouse.MouseInputHandler;
 import com.ndsl.graphics.display.scene.SceneManager;
+import com.ndsl.graphics.display.util.ExitManager;
 import com.ndsl.graphics.pos.Rect;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -28,6 +28,7 @@ public class Display extends JFrame {
     public KeyInputHandler keyHandler;
     public MouseInputHandler mouseInputHandler;
     public Debugger debugger;
+    public ExitManager exitManager=new ExitManager();
 
     public boolean isDebuggingMode = false;
     public Display setDebugMode(boolean isDebuggingMode){
@@ -53,7 +54,8 @@ public class Display extends JFrame {
         this.setVisible(true);
         this.createBufferStrategy(bufferSize);
         this.bufferStrategy = this.getBufferStrategy();
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        this.addWindowListener(this.exitManager.WL);
         this.keyHandler=new KeyInputHandler(this);
         this.mouseInputHandler=new MouseInputHandler(this);
         this.debugger=new Debugger(limiter,keyHandler,mouseInputHandler);
@@ -72,10 +74,6 @@ public class Display extends JFrame {
 
     public boolean isShowing(Drawable drawable){
         return getDisplayShowingRect().contain(drawable.getShowingRect());
-    }
-
-    public boolean isShowing(RealTimeDrawable d) {
-        return getDisplayShowingRect().contain(d.getShowingRect());
     }
 
     public boolean isShowing(GUIBase guiBase){

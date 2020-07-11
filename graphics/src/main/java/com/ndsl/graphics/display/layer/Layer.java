@@ -36,8 +36,8 @@ public class Layer {
         return list;
     }
 
-    public Scene extractScene(String id){
-        return new Scene(id).add(this);
+    public Scene extractScene(String id,Integer int_id){
+        return new Scene(id).add(this,int_id);
     }
     
     public boolean isExist(Drawable d){
