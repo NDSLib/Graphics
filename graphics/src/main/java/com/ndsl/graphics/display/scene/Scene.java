@@ -20,7 +20,7 @@ public class Scene {
     @Override
     public boolean equals(Object obj) {
         if(obj instanceof Scene) {
-            return ((Scene)obj).id==this.id;
+            return ((Scene) obj).id.equals(this.id);
         }
         return false;
     }

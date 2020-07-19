@@ -76,9 +76,11 @@ public class GImage {
         if (isTrimed){
             img=bufferedImage.getSubimage(size_rect.left_up.x,size_rect.left_up.y,size_rect.getWidth(),size_rect.getWidth());
         }
-        this.exportedImage=img;
+        BufferedImage out_image = new BufferedImage(size_rect.getWidth(),size_rect.getHeight() , 1);
+        out_image.getGraphics().drawImage(img,0,0,size_rect.getWidth(),size_rect.getHeight(),null);
+        this.exportedImage=out_image;
         this.isChanged=false;
-        return img;
+        return out_image;
     }
 
     private boolean isZoomed(){

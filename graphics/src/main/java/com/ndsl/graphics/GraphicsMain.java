@@ -1,5 +1,6 @@
 package com.ndsl.graphics;
 
+import com.ndsl.graphics.display.BorderLessDisplay;
 import com.ndsl.graphics.display.Display;
 import com.ndsl.graphics.display.drawable.base.Drawable;
 import com.ndsl.graphics.display.drawable.non_sync.RectDrawable;
@@ -10,6 +11,7 @@ import com.ndsl.graphics.display.drawable.img.ImageDrawable;
 import com.ndsl.graphics.display.drawable.non_sync.ui.Button;
 import com.ndsl.graphics.display.drawable.synced.SyncedStringDrawable;
 import com.ndsl.graphics.display.layer.Layer;
+import com.ndsl.graphics.display.sub.SubWindow;
 import com.ndsl.graphics.display.util.ExitAttitude;
 import com.ndsl.graphics.pos.Pos;
 import com.ndsl.graphics.pos.Rect;
@@ -29,7 +31,7 @@ public class GraphicsMain {
     public Display display;
 
     public static void main(String[] args) throws IOException {
-        new GraphicsMain().exitTest();
+        new GraphicsMain().borderLessDisplayTest();
     }
 
     public void onRun(){
@@ -105,10 +107,27 @@ public class GraphicsMain {
     }
 
     public class EA implements ExitAttitude {
-
         @Override
         public void onClose(WindowEvent e) {
             System.out.println("Exit!!!!");
+        }
+    }
+
+    public void subWindowTest(){
+        display = new Display("NDSL/Graphics",3,new Rect(new Pos(100,100),new Pos(600,600)));
+        SubWindow sub=new SubWindow("sub-NDSL/Graphics",display);
+        SubWindow sub_=new SubWindow("sub_-NDSL/Graphics",display);
+        while(true){
+            if (display.limiter.onUpdate()) display.update();
+            if (sub.limiter.onUpdate()) sub.update();
+            if (sub_.limiter.onUpdate()) sub_.update();
+        }
+    }
+
+    public void borderLessDisplayTest(){
+        BorderLessDisplay display_ = new BorderLessDisplay("NDSL/Graphics",3,new Rect(new Pos(100,100),new Pos(600,600)));
+        while(true){
+            if (display_.limiter.onUpdate()) display_.update();
         }
     }
 }
