@@ -29,6 +29,7 @@ public class Display extends JFrame {
     public MouseInputHandler mouseInputHandler;
     public Debugger debugger;
     public ExitManager exitManager=new ExitManager();
+    public int bufferSize;
 
     public boolean isDebuggingMode = false;
     public Display setDebugMode(boolean isDebuggingMode){
@@ -42,17 +43,12 @@ public class Display extends JFrame {
     }
     public SceneManager sceneManager=new SceneManager();
 
-//    @Deprecated
-//    public AudioInput audioInput=new AudioInput(0);
-
-//    @Deprecated
-//    public AudioOutput audioOutput=new AudioOutput();
-
     public Display(String title, int bufferSize, @NotNull Rect displayBound) {
         this.setTitle(title);
         this.setBounds(displayBound.left_up.x,displayBound.left_up.y,displayBound.getWidth(),displayBound.getHeight());
         this.setVisible(true);
         this.createBufferStrategy(bufferSize);
+        this.bufferSize=bufferSize;
         this.bufferStrategy = this.getBufferStrategy();
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.addWindowListener(this.exitManager.WL);
@@ -62,11 +58,17 @@ public class Display extends JFrame {
         Start_Time=System.currentTimeMillis();
     }
 
+    /**
+     * If use this,You must init yourself.
+     * like above.
+     */
+    protected Display(){
+
+    }
+
     public long getDeltaTime(){
         return System.currentTimeMillis()-Start_Time;
     }
-
-//    public List<Drawable> drawableList=new ArrayList<>();
 
     public boolean isShowing(Rect r){
         return getDisplayShowingRect().contain(r);
@@ -120,16 +122,16 @@ public class Display extends JFrame {
         if(need_draw) repaint();
     }
 
-    private void drawDebugRect(Rect showingRect, Graphics g) {
+    protected void drawDebugRect(Rect showingRect, Graphics g) {
         g.setColor(DebugColor);
         g.drawRect(showingRect.left_up.x,showingRect.left_up.y,showingRect.getWidth(),showingRect.getHeight());
     }
 
-    private void resetGraphics(Graphics graphics){
+    protected void resetGraphics(Graphics graphics){
         graphics.setColor(GraphicsMain.Default_Color);
     }
 
-    private void clear() {
+    protected void clear() {
         Graphics g = getGraphic();
         g.setColor(getBackground());
         g.fillRect(0,0,getWidth(),getHeight());
