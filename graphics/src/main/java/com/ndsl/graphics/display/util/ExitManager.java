@@ -1,5 +1,7 @@
 package com.ndsl.graphics.display.util;
 
+import com.ndsl.graphics.display.sub.SubWindow;
+
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -17,7 +19,11 @@ public class ExitManager {
         for(ExitAttitude manager:exit){
             manager.onClose(e);
         }
-        System.exit(0);
+        if (!(e.getWindow() instanceof SubWindow)){
+            System.exit(0);
+        }else{
+            e.getWindow().dispose();
+        }
     }
     public windowListener WL=new windowListener(this);
     public class windowListener extends WindowAdapter{
