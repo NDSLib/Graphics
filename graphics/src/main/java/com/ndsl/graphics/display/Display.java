@@ -11,6 +11,7 @@ import com.ndsl.graphics.display.layer.Layer;
 import com.ndsl.graphics.display.layer.LayerManager;
 import com.ndsl.graphics.display.mouse.MouseInputHandler;
 import com.ndsl.graphics.display.scene.SceneManager;
+import com.ndsl.graphics.display.sub.Syncer;
 import com.ndsl.graphics.display.util.ExitManager;
 import com.ndsl.graphics.pos.Rect;
 import org.jetbrains.annotations.NotNull;
@@ -21,7 +22,7 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 
 public class Display extends JFrame {
-
+    public Syncer syncer=new Syncer();
     public FPSLimiter limiter =new FPSLimiter(120, FPSAttitude.KEEP_UP_FPS);
     public long Start_Time;
     public BufferStrategy bufferStrategy;

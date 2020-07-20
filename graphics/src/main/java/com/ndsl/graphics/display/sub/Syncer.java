@@ -3,7 +3,6 @@ package com.ndsl.graphics.display.sub;
 import com.ndsl.graphics.display.Display;
 
 public class Syncer {
-    public Display display;
     public Object Object;
     public volatile boolean isRead=true;
     public Syncer(){
