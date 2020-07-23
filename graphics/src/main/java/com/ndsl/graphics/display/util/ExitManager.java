@@ -9,23 +9,25 @@ import java.util.List;
 public class ExitManager {
     public List<ExitAttitude> exit=new ArrayList<>();
 
-    public ExitManager add(ExitAttitude exit_){
+    public void add(ExitAttitude exit_){
         exit.add(exit_);
-        return this;
     }
 
     public void onExit(WindowEvent e){
+        System.out.println("Exit");
         for(ExitAttitude manager:exit){
             manager.onClose(e);
         }
         if (!(e.getWindow() instanceof SubWindow)){
+            System.out.println("Not Sub");
             System.exit(0);
         }else{
+            System.out.println("Sub");
             e.getWindow().dispose();
         }
     }
-    public windowListener WL=new windowListener(this);
-    public class windowListener extends WindowAdapter{
+    public windowListener WL= new windowListener(this);
+    public static class windowListener extends WindowAdapter{
         public ExitManager e;
         public windowListener(ExitManager e){
             this.e=e;

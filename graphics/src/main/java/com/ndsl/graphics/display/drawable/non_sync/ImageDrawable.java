@@ -1,4 +1,4 @@
-package com.ndsl.graphics.display.drawable.img;
+package com.ndsl.graphics.display.drawable.non_sync;
 
 import com.ndsl.graphics.display.Display;
 import com.ndsl.graphics.display.drawable.IDrawable;

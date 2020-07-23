@@ -10,25 +10,25 @@ public class DefaultBar implements BorderBar {
     public static final int button_width=40;
     public Rect bar_rect;
     public Color c;
-    public BorderLessDisplay display;
-    public DefaultBar(BorderLessDisplay borderLessDisplay) {
-        this(borderLessDisplay,new Color(120, 120, 120, 255));
+    public Display display;
+    public DefaultBar(Display display) {
+        this(display,new Color(120, 120, 120, 255));
     }
 
-    public DefaultBar(BorderLessDisplay borderLessDisplay,Color c) {
-        this.bar_rect=new Rect(0,0,borderLessDisplay.getWidth(),bar_tin);
+    public DefaultBar(Display display,Color c) {
+        this.bar_rect=new Rect(0,0,display.getWidth(),bar_tin);
         this.c=c;
-        this.mouseinput=borderLessDisplay.mouseInputHandler;
-        this.display=borderLessDisplay;
-        final Rect min_rect=new Rect(borderLessDisplay.getWidth()-button_width*3,0,borderLessDisplay.getWidth()-button_width*2,bar_tin);
+        this.mouseinput=display.mouseInputHandler;
+        this.display=display;
+        final Rect min_rect=new Rect(display.getWidth()-button_width*3,0,display.getWidth()-button_width*2,bar_tin);
         final int min_bar_rect_tin=1;
         final int min_bar_rect_width=20;
         this.minButton=new MinimumButton(min_rect,new Rect(min_rect.left_up.x+(min_rect.getWidth()-min_bar_rect_width)/2,min_rect.left_up.y+(min_rect.getHeight()-min_bar_rect_tin)/2,min_rect.left_up.x+(min_rect.getWidth()+min_bar_rect_width)/2,min_rect.left_up.y+(min_rect.getHeight()+min_bar_rect_tin)/2),new Color(255,255,255),new Color(53, 104, 255));
-        final Rect max_rect = new Rect(borderLessDisplay.getWidth()-button_width*2,0,borderLessDisplay.getWidth()-button_width*1,bar_tin);
+        final Rect max_rect = new Rect(display.getWidth()-button_width*2,0,display.getWidth()-button_width*1,bar_tin);
         final int max_bar_rect_tin=20;
         final int max_bar_rect_width=20;
         this.maxButton=new MaximumButton(max_rect,new Rect(max_rect.left_up.x+(max_rect.getWidth()/2-max_bar_rect_width/2),max_rect.left_up.y+(max_rect.getHeight()/2-max_bar_rect_tin/2),max_rect.left_up.x+(max_rect.getWidth()/2+max_bar_rect_width/2),max_rect.left_up.y+(max_rect.getHeight()/2+max_bar_rect_tin/2)),new Color(255,255,255),new Color(53, 104, 255));
-        final Rect close_rect = new Rect(borderLessDisplay.getWidth()-button_width*1,0,borderLessDisplay.getWidth()/*-button_width*0*/,bar_tin);
+        final Rect close_rect = new Rect(display.getWidth()-button_width*1,0,display.getWidth()/*-button_width*0*/,bar_tin);
         final int close_bar_rect_tin=20;
         final int close_bar_rect_width=20;
         this.closeButton=new CloseButton(close_rect,new Rect(close_rect.left_up.x+(close_rect.getWidth()/2-close_bar_rect_width/2),close_rect.left_up.y+(close_rect.getHeight()/2-close_bar_rect_tin/2),close_rect.left_up.x+(close_rect.getWidth()/2+close_bar_rect_width/2),close_rect.left_up.y+(close_rect.getHeight()/2+close_bar_rect_tin/2)),new Color(255,255,255),new Color(255, 19, 19));
@@ -132,7 +132,7 @@ public class DefaultBar implements BorderBar {
             g.fillRect(r.left_up.x,r.left_up.y,r.getWidth(),r.getHeight());
             drawX(g);
             if (isClicked()){
-                System.exit(0);
+                display.dispose();
             }
         }
 

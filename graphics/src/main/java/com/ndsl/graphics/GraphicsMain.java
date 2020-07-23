@@ -7,10 +7,12 @@ import com.ndsl.graphics.display.drawable.non_sync.RectDrawable;
 import com.ndsl.graphics.display.drawable.non_sync.StringDrawable;
 import com.ndsl.graphics.display.drawable.animate.TimeScaledAnimator;
 import com.ndsl.graphics.display.drawable.img.GImage;
-import com.ndsl.graphics.display.drawable.img.ImageDrawable;
+import com.ndsl.graphics.display.drawable.non_sync.ImageDrawable;
 import com.ndsl.graphics.display.drawable.non_sync.ui.Button;
+import com.ndsl.graphics.display.drawable.synced.SyncedImageDrawable;
 import com.ndsl.graphics.display.drawable.synced.SyncedStringDrawable;
 import com.ndsl.graphics.display.layer.Layer;
+import com.ndsl.graphics.display.sub.BorderLessSubWindow;
 import com.ndsl.graphics.display.sub.SubWindow;
 import com.ndsl.graphics.display.util.ExitAttitude;
 import com.ndsl.graphics.pos.Pos;
@@ -31,7 +33,7 @@ public class GraphicsMain {
     public Display display;
 
     public static void main(String[] args) throws IOException {
-        new GraphicsMain().borderLessDisplayTest();
+        new GraphicsMain().GImageTest();
     }
 
     public void onRun(){
@@ -41,21 +43,9 @@ public class GraphicsMain {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        /*
-          drawable remove test
-          !PASSED!
-         */
-
-//        display.addDrawable(new Drawable("A",new Pos(100,100),"test_drawable"));
-//        System.out.println(display.drawableList);
-//        System.out.println("GetWithID:"+display.getDrawableWithID("test_drawable"));
-//        display.addDrawable(new Drawable("test_drawable"));
-//        System.out.println(display.drawableList);
         display.setDebugMode(true);
         display.addDrawable(new Drawable(new StringDrawable("え",new Rect(new Pos(200,200)),StringDrawable.Default_Font,"Test_Font")));
         display.addDrawable(new Drawable(new ImageDrawable(BunFace,new Pos(200,200),"bun_face")));
-        //noinspection InfiniteLoopStatement
         while (true){
             display.debugger.setDebug(display);
             display.mouseInputHandler.setDebugDrawable();
@@ -129,5 +119,40 @@ public class GraphicsMain {
         while(true){
             if (display_.limiter.onUpdate()) display_.update();
         }
+    }
+
+    public void subBorderLessWindowTest(){
+        display = new Display("NDSL/Graphics",3,new Rect(new Pos(100,100),new Pos(600,600)));
+        SubWindow window=new BorderLessSubWindow(display);
+        while(true){
+            if(display.limiter.onUpdate()) display.update();
+            if(window.limiter.onUpdate()) window.update();
+        }
+    }
+
+    public void GImageTest(){
+        display = new Display("NDSL/Graphics",3,new Rect(new Pos(100,100),new Pos(600,600)));
+        try {
+            BunFace = ImageIO.read(BunFaceFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        GImage image=new GImage(BunFace);
+//        PASSED!
+        image.zoom(0.5d);
+        image.trim(new Rect(0,0,100,100));
+        image.zoom(1.5d);
+        SyncedImageDrawable img_d=new SyncedImageDrawable(image.export(),new Pos(0,20),"TestBun");
+        display.addDrawable(new Drawable(img_d));
+        while(true){
+            if(display.limiter.onUpdate()) display.update();
+            img_d.setImage(image.export());
+        }
+    }
+
+    private double easing(long time){
+        long count=time%2;  //0~2(int)
+        if(count==0) return 0.5;
+        return count;//1~2(int)
     }
 }

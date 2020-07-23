@@ -6,6 +6,8 @@ import com.ndsl.graphics.pos.Rect;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.awt.image.WritableRaster;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,9 +19,8 @@ import java.util.List;
 public class GImage {
     public static final Pos left_zero_zero=new Pos(0,0);
 
-    public BufferedImage bufferedImage;
-    public Image exportedImage;
-    public boolean isChanged=false;
+    public BufferedImage inputImage;
+    public BufferedImage exportedImage;
     public static GImage get(String path) throws IOException {
         return get(new File(path));
     }
@@ -57,34 +58,20 @@ public class GImage {
     }
 
     public GImage(Image image){
-        this.bufferedImage= (BufferedImage) image;
+        this.inputImage=copyTo(image);
+        this.exportedImage=inputImage;
         this.size_rect=new Rect(new Pos(0,0),new Pos(image.getWidth(null),image.getHeight(null)));
     }
 
-    public boolean isTrimed;
-
     public GImage trim(Rect trimRect){
         this.size_rect=trimRect;
-        isTrimed=true;
-        isChanged=true;
+        this.ext.trim(trimRect);
         return this;
     }
 
     @SuppressWarnings("UnusedReturnValue")
     public Image export(){
-        Image img=bufferedImage;
-        if (isTrimed){
-            img=bufferedImage.getSubimage(size_rect.left_up.x,size_rect.left_up.y,size_rect.getWidth(),size_rect.getWidth());
-        }
-        BufferedImage out_image = new BufferedImage(size_rect.getWidth(),size_rect.getHeight() , 1);
-        out_image.getGraphics().drawImage(img,0,0,size_rect.getWidth(),size_rect.getHeight(),null);
-        this.exportedImage=out_image;
-        this.isChanged=false;
-        return out_image;
-    }
-
-    private boolean isZoomed(){
-        return bufferedImage.getWidth(null)!=size_rect.getWidth() || bufferedImage.getHeight(null)!=size_rect.getHeight();
+        return exportedImage;
     }
 
     /**
@@ -92,7 +79,7 @@ public class GImage {
      */
     public GImage zoom(double zoomScale){
         this.size_rect.zoom(zoomScale);
-        this.isChanged=true;
+        this.ext.zoom(zoomScale);
         return this;
     }
 
@@ -101,8 +88,47 @@ public class GImage {
     }
 
     public Image getCachedImage(){
-        if(isChanged) export();
         if(exportedImage==null) export();
         return exportedImage;
+    }
+
+    private BufferedImage copyTo(Image image){
+        BufferedImage img=new BufferedImage(image.getWidth(null),image.getHeight(null),BufferedImage.TYPE_3BYTE_BGR);
+        img.getGraphics().drawImage(image,0,0,null);
+        return img;
+    }
+
+    public Extractor ext= new Extractor(this);
+    public static class Extractor {
+        public GImage img;
+        public Extractor(GImage Image){
+            this.img=Image;
+        }
+
+        public void trim(Rect r){
+            if(getImageRect(img.exportedImage).contain(r)){
+                img.exportedImage = rasterToImage ((WritableRaster) ((BufferedImage)img.exportedImage).getData(r.castTo()));
+            }else{
+                throw new IllegalArgumentException("Trim size is bigger than CurrentImage.");
+            }
+        }
+
+        public void zoom(double zoomScale) {
+            double width = img.exportedImage.getWidth(null) * zoomScale;
+            double height = img.exportedImage.getHeight(null) * zoomScale;
+            int width_i= (int) Math.floor(width);
+            int height_i= (int) Math.floor(height);
+            BufferedImage bi = img.exportedImage;
+            img.exportedImage=new BufferedImage(width_i,height_i, BufferedImage.TYPE_3BYTE_BGR);
+            img.exportedImage.getGraphics().drawImage(bi,0,0,width_i,height_i,null);
+        }
+
+        private Rect getImageRect(Image image){
+            return new Rect(0,0,image.getWidth(null),image.getHeight(null));
+        }
+
+        private BufferedImage rasterToImage(WritableRaster raster){
+            return new BufferedImage(img.inputImage.getColorModel(),raster,true,null);
+        }
     }
 }

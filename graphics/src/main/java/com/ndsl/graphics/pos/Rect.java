@@ -1,5 +1,6 @@
 package com.ndsl.graphics.pos;
 
+import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
 public class Rect {
@@ -84,5 +85,9 @@ public class Rect {
         this.left_up.shift(x,y);
         this.right_down.shift(x,y);
         return this;
+    }
+
+    public Rectangle castTo(){
+        return new Rectangle(left_up.x,left_up.y,getWidth(),getHeight());
     }
 }

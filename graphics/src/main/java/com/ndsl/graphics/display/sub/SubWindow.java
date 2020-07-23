@@ -17,4 +17,12 @@ public class SubWindow extends Display {
     public SubWindow(String title,Display display) {
         super(title,display.bufferSize,new Rect(display.getBounds()));
     }
+
+    /**
+     * If use this,You must init yourself.
+     * like above.
+     */
+    protected SubWindow(){
+
+    }
 }
