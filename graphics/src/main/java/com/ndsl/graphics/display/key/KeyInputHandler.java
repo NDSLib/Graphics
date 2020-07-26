@@ -17,6 +17,7 @@ public class KeyInputHandler implements KeyListener {
     public Display display;
     public DisplayAttitude attitude;
     public List<Integer> active_KeyList=new ArrayList<>();
+    public List<KeyInputListener> typed_listeners=new ArrayList<>();
 
     public KeyInputHandler(Display display){
         this.display=display;
@@ -26,18 +27,18 @@ public class KeyInputHandler implements KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
-//        if(isHook()){
-//            active_KeyList.add(e.getKeyCode());
-//        }
+        for(KeyInputListener l:typed_listeners){l.onTyped(e);}
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
+        for(KeyInputListener l:typed_listeners){l.onPressed(e);}
         if(!active_KeyList.contains(e.getKeyCode())) active_KeyList.add(new Integer(e.getKeyCode()));
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
+        for(KeyInputListener l:typed_listeners){l.onReleased(e);}
         active_KeyList.remove(new Integer(e.getKeyCode()));
     }
 

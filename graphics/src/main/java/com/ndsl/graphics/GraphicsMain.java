@@ -19,6 +19,7 @@ import com.ndsl.graphics.pos.Pos;
 import com.ndsl.graphics.pos.Rect;
 
 import javax.imageio.ImageIO;
+import javax.print.attribute.standard.Media;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
@@ -150,9 +151,7 @@ public class GraphicsMain {
         }
     }
 
-    private double easing(long time){
-        long count=time%2;  //0~2(int)
-        if(count==0) return 0.5;
-        return count;//1~2(int)
+    public void media_Test(){
+        Media media;
     }
 }
