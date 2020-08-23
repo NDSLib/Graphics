@@ -30,6 +30,7 @@ public class KeyInputHandler implements KeyListener {
         for(KeyInputListener l:typed_listeners){l.onTyped(e);}
     }
 
+    @SuppressWarnings({"UnnecessaryBoxing", "CachedNumberConstructorCall"})
     @Override
     public void keyPressed(KeyEvent e) {
         for(KeyInputListener l:typed_listeners){l.onPressed(e);}
@@ -39,6 +40,7 @@ public class KeyInputHandler implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         for(KeyInputListener l:typed_listeners){l.onReleased(e);}
+        //noinspection CachedNumberConstructorCall
         active_KeyList.remove(new Integer(e.getKeyCode()));
     }
 

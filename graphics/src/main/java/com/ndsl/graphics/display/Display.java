@@ -92,7 +92,7 @@ public class Display extends JFrame {
         return bufferStrategy.getDrawGraphics();
     }
 
-    public LayerManager layerManager=LayerManager.INSTANCE;
+    public LayerManager layerManager=new LayerManager();
 
     public void update(){
         if(bufferStrategy.contentsLost()) bufferStrategy=this.getBufferStrategy();

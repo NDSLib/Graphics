@@ -54,11 +54,11 @@ public class MouseInputHandler implements MouseMotionListener,MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        setDoubleClick(e);
-        setNow_mouse_pos(e);
-        setMouseButton(e);
-        register.hook(e,MouseEventType.Click);
-        isClicking=true;
+//        setDoubleClick(e);
+//        setNow_mouse_pos(e);
+//        setMouseButton(e);
+//        register.hook(e,MouseEventType.Click);
+//        isClicking=true;
     }
 
     @Override
@@ -75,7 +75,6 @@ public class MouseInputHandler implements MouseMotionListener,MouseListener {
         setDoubleClick(e);
         setNow_mouse_pos(e);
         setMouseButton(e);
-        Current_Mouse_Button=0;
         register.hook(e,MouseEventType.RELEASE);
         isClicking=false;
     }
@@ -160,9 +159,7 @@ public class MouseInputHandler implements MouseMotionListener,MouseListener {
         return Current_Mouse_Button;
     }
 
-    @Deprecated
     public register register=new register();
-    @Deprecated
     public class register{
         private register(){}
 

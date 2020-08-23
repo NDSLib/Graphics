@@ -4,7 +4,6 @@ import com.ndsl.graphics.display.Display;
 import com.ndsl.graphics.display.mouse.CustomMouseEvent;
 import com.ndsl.graphics.pos.Rect;
 
-@Deprecated
 public interface MouseUIListener {
     void onHover(CustomMouseEvent e);
     void onClick(CustomMouseEvent e);

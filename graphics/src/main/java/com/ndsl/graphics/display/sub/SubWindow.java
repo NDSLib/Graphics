@@ -10,7 +10,7 @@ public class SubWindow extends Display {
         this(display.getTitle(),display.bufferSize,new Rect(display.getBounds()));
     }
 
-    private SubWindow(String title, int bufferSize, @NotNull Rect displayBound) {
+    public SubWindow(String title, int bufferSize, @NotNull Rect displayBound) {
         super(title, bufferSize, displayBound);
     }
 
