@@ -14,12 +14,12 @@ public class SyncedLineDrawable extends LineDrawable {
         super(line, color, id);
     }
 
-    public Line getLine(){
+    public Line getLine() {
         return this.line;
     }
 
-    public SyncedLineDrawable setLine(Line line){
-        this.line=line;
+    public SyncedLineDrawable setLine(Line line) {
+        this.line = line;
         return this;
     }
 }

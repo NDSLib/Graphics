@@ -14,9 +14,12 @@ public class SyncedPointDrawable extends PointDrawable {
         super(pos, id);
     }
 
-    public Pos getPos(){
+    public Pos getPos() {
         return this.pos;
     }
 
-    public SyncedPointDrawable setPos(Pos pos){this.pos=pos;return this;}
+    public SyncedPointDrawable setPos(Pos pos) {
+        this.pos = pos;
+        return this;
+    }
 }

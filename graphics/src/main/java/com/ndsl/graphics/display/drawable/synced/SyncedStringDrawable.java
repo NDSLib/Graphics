@@ -18,21 +18,21 @@ public class SyncedStringDrawable extends StringDrawable {
         super(s, r, id);
     }
 
-    public String getText(){
+    public String getText() {
         return this.data;
     }
 
-    public SyncedStringDrawable setText(String s){
-        this.data=s;
+    public SyncedStringDrawable setText(String s) {
+        this.data = s;
         return this;
     }
 
-    public Rect getRect(){
+    public Rect getRect() {
         return this.r;
     }
 
-    public SyncedStringDrawable setRect(Rect r){
-        this.r=r;
+    public SyncedStringDrawable setRect(Rect r) {
+        this.r = r;
         return this;
     }
 }

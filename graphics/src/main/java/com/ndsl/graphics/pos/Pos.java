@@ -5,13 +5,14 @@ import java.awt.*;
 public class Pos {
     public int x;
     public int y;
-    public Pos(int x,int y){
-        this.x=x;
-        this.y=y;
+
+    public Pos(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 
     public Pos(Point point) {
-        this((int) point.getX(),(int) point.getY());
+        this((int) point.getX(), (int) point.getY());
     }
 
     public boolean contain(Rect displayShowingRect) {
@@ -21,21 +22,21 @@ public class Pos {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof Pos){
-            return ((Pos) obj).x==x && ((Pos)obj).y==y;
-        }else{
+        if (obj instanceof Pos) {
+            return ((Pos) obj).x == x && ((Pos) obj).y == y;
+        } else {
             return false;
         }
     }
 
     @Override
     public String toString() {
-        return "{x:"+x+",y:"+y+"}";
+        return "{x:" + x + ",y:" + y + "}";
     }
 
-    public Pos shift(int x,int y){
-        this.x+=x;
-        this.y+=y;
+    public Pos shift(int x, int y) {
+        this.x += x;
+        this.y += y;
         return this;
     }
 }

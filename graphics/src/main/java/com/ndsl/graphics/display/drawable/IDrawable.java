@@ -7,7 +7,10 @@ import java.awt.*;
 
 public interface IDrawable {
     void onDraw(Graphics g, Rect showingRect);
+
     Rect getShowingRect();
+
     boolean isShowing(Display display);
+
     String getID();
 }

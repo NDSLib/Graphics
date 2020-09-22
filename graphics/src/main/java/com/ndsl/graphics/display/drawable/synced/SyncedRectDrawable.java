@@ -14,12 +14,12 @@ public class SyncedRectDrawable extends RectDrawable {
         super(r, c, id, isFill);
     }
 
-    public Rect getRect(){
+    public Rect getRect() {
         return this.r;
     }
 
-    public SyncedRectDrawable setRect(Rect rect){
-        this.r=rect;
+    public SyncedRectDrawable setRect(Rect rect) {
+        this.r = rect;
         return this;
     }
 }

@@ -9,30 +9,31 @@ import java.awt.*;
 public class GUIBase implements IDrawable {
     public IDrawable drawObject;
     public String id;
+
     public GUIBase(IDrawable drawObject) {
-        this.drawObject=drawObject;
-        this.id=drawObject.getID();
+        this.drawObject = drawObject;
+        this.id = drawObject.getID();
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof GUIBase){
-            if(((GUIBase) obj).getID()!=null) {
+        if (obj instanceof GUIBase) {
+            if (((GUIBase) obj).getID() != null) {
                 if (((GUIBase) obj).getID().equals(getID())) return true;
             }
-            if (((GUIBase)obj).getShowingRect().left_up.equals(getShowingRect().left_up)){
-                return ((GUIBase)obj).drawObject.equals(drawObject);
-            }else{
+            if (((GUIBase) obj).getShowingRect().left_up.equals(getShowingRect().left_up)) {
+                return ((GUIBase) obj).drawObject.equals(drawObject);
+            } else {
                 return false;
             }
-        }else{
+        } else {
             return false;
         }
     }
 
     @Override
     public void onDraw(Graphics g, Rect showingRect) {
-        drawObject.onDraw(g,getShowingRect());
+        drawObject.onDraw(g, getShowingRect());
     }
 
     @Override

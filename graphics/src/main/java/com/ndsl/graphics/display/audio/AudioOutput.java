@@ -1,22 +1,20 @@
 package com.ndsl.graphics.display.audio;
 
-import javax.sound.midi.Sequencer;
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class AudioOutput {
-    public Map<File,InputClip> fileClipMap=new HashMap<>();
+    public Map<File, InputClip> fileClipMap = new HashMap<>();
 
-    public AudioOutput (){
+    public AudioOutput() {
 
     }
 
-    public void load(File file){
-        fileClipMap.put(file,loadFromFile(file));
+    public void load(File file) {
+        fileClipMap.put(file, loadFromFile(file));
     }
 
     public InputClip loadFromFile(File file) {
@@ -33,7 +31,8 @@ public class AudioOutput {
         }
         return null;
     }
-    public boolean isLoaded(File file){
+
+    public boolean isLoaded(File file) {
         return fileClipMap.containsKey(file);
     }
 
@@ -46,12 +45,12 @@ public class AudioOutput {
         clip.clip.start();
     }
 
-    public void stop(File file){
+    public void stop(File file) {
         stop(fileClipMap.get(file));
     }
 
-    public void stop(InputClip clip){
-        if(clip.clip.isRunning()){
+    public void stop(InputClip clip) {
+        if (clip.clip.isRunning()) {
             clip.clip.stop();
         }
     }

@@ -10,25 +10,25 @@ import java.awt.*;
 
 public class LineDrawable implements IDrawable {
     public Line line;
-    public Color color= GraphicsMain.Default_Color;
+    public Color color = GraphicsMain.Default_Color;
     public Rect rect;
     public String id;
 
-    public LineDrawable(Line line,String id){
-        this.line=line;
-        rect=new Rect(line);
-        this.id=id;
+    public LineDrawable(Line line, String id) {
+        this.line = line;
+        rect = new Rect(line);
+        this.id = id;
     }
 
-    public LineDrawable(Line line,Color color,String id){
-        this(line,id);
-        this.color=color;
+    public LineDrawable(Line line, Color color, String id) {
+        this(line, id);
+        this.color = color;
     }
 
     @Override
     public void onDraw(Graphics g, Rect showingRect) {
         g.setColor(color);
-        g.drawLine(line.one.x,line.one.y,line.two.x,line.two.y);
+        g.drawLine(line.one.x, line.one.y, line.two.x, line.two.y);
     }
 
     @Override

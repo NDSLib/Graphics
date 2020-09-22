@@ -6,8 +6,9 @@ import javax.sound.sampled.Clip;
 public class InputClip {
     public AudioInputStream inputStream;
     public Clip clip;
-    public InputClip(AudioInputStream inputStream, Clip clip){
-        this.clip=clip;
-        this.inputStream=inputStream;
+
+    public InputClip(AudioInputStream inputStream, Clip clip) {
+        this.clip = clip;
+        this.inputStream = inputStream;
     }
 }

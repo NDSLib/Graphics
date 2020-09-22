@@ -8,48 +8,48 @@ import java.awt.*;
 
 public class Drawable {
     public IDrawable drawObject;
-    public String Drawable_id=null;
+    public String Drawable_id = null;
 
-    public Drawable(IDrawable d){
-        drawObject=d;
-        Drawable_id=d.getID();
+    public Drawable(IDrawable d) {
+        drawObject = d;
+        Drawable_id = d.getID();
     }
 
-    public Drawable(IDrawable d,String id){
+    public Drawable(IDrawable d, String id) {
         this(d);
-        Drawable_id=id;
+        Drawable_id = id;
     }
 
-    public void onDraw(Graphics g){
-        if(g==null) {
+    public void onDraw(Graphics g) {
+        if (g == null) {
             System.out.println("Graphics is null");
             return;
         }
-        drawObject.onDraw(g,drawObject.getShowingRect());
+        drawObject.onDraw(g, drawObject.getShowingRect());
     }
 
-    public Rect getShowingRect(){
+    public Rect getShowingRect() {
         return drawObject.getShowingRect();
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof Drawable){
-            if(((Drawable) obj).getID()!=null) {
+        if (obj instanceof Drawable) {
+            if (((Drawable) obj).getID() != null) {
                 if (((Drawable) obj).getID().equals(getID())) return true;
             }
-            if (((Drawable)obj).getShowingRect().left_up.equals(getShowingRect().left_up)){
-                return ((Drawable)obj).drawObject.equals(drawObject);
-            }else{
+            if (((Drawable) obj).getShowingRect().left_up.equals(getShowingRect().left_up)) {
+                return ((Drawable) obj).drawObject.equals(drawObject);
+            } else {
                 return false;
             }
-        }else{
+        } else {
             return false;
         }
     }
 
     @Nullable
-    public String getID(){
+    public String getID() {
         return Drawable_id;
     }
 }

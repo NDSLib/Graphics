@@ -7,7 +7,7 @@ public class GMovie {
     public long perFrameMillTime;
     public long AllFramesCount;
 
-    public GMovie(GImage[] data){
-        this.data=data;
+    public GMovie(GImage[] data) {
+        this.data = data;
     }
 }

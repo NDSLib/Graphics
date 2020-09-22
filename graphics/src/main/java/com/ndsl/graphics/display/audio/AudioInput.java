@@ -1,7 +1,6 @@
 package com.ndsl.graphics.display.audio;
 
 import javax.sound.sampled.*;
-import java.io.InputStream;
 
 public class AudioInput {
     public int line_num;
@@ -14,11 +13,11 @@ public class AudioInput {
 
 
     public AudioInput(int line_num) throws LineUnavailableException {
-        this.line_num=line_num;
+        this.line_num = line_num;
         init();
     }
 
-    public void init(){
+    public void init() {
 //        InputStream stream;
 //        AudioInputStream inputStream=new AudioInputStream(, format, );
         //        format=new AudioFormat(8000, 8, 1, true, true);
@@ -36,8 +35,8 @@ public class AudioInput {
 //        Current_Bytes=new byte[buffer_size];
     }
 
-    public void getBufferInput(){
-        input_line.read(Current_Bytes,0,Current_Bytes.length);
+    public void getBufferInput() {
+        input_line.read(Current_Bytes, 0, Current_Bytes.length);
     }
 
 

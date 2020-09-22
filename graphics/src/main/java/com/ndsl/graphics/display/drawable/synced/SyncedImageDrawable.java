@@ -1,7 +1,5 @@
 package com.ndsl.graphics.display.drawable.synced;
 
-import com.ndsl.graphics.display.Display;
-import com.ndsl.graphics.display.drawable.IDrawable;
 import com.ndsl.graphics.display.drawable.non_sync.ImageDrawable;
 import com.ndsl.graphics.pos.Pos;
 import com.ndsl.graphics.pos.Rect;
@@ -18,9 +16,9 @@ public class SyncedImageDrawable extends ImageDrawable {
         super(image, pos, id);
     }
 
-    public SyncedImageDrawable setImage(Image img){
-        this.image=img;
-        this.rect=new Rect(rect.left_up.x,rect.left_up.y,image.getWidth(null)+rect.left_up.x,image.getHeight(null)+rect.left_up.y);
+    public SyncedImageDrawable setImage(Image img) {
+        this.image = img;
+        this.rect = new Rect(rect.left_up.x, rect.left_up.y, image.getWidth(null) + rect.left_up.x, image.getHeight(null) + rect.left_up.y);
         return this;
     }
 }
